@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:greenhousegas/show_product.dart';
+import 'package:greenhousegas/show_product_chart.dart';
 import 'package:greenhousegas/staple.dart';
 import 'package:greenhousegas/view_table_product.dart';
 import 'package:http/http.dart' as http;
@@ -55,7 +56,8 @@ class _viewproductState extends State<viewproduct> {
   void jojo() async {
     selectedValue = widget.list[widget.i]['product_company_origin'];
     caValue = widget.list[widget.i]['product_cars'];
-    productname = TextEditingController(text: widget.list[widget.i]['product_name']);
+    productname =
+        TextEditingController(text: widget.list[widget.i]['product_name']);
     productweight =
         TextEditingController(text: widget.list[widget.i]['product_weight']);
   }
@@ -69,8 +71,8 @@ class _viewproductState extends State<viewproduct> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  viewtableproduct(mon_Start, mon_End, yearSave, selectedValue)));
+              builder: (context) => viewtableproduct(
+                  mon_Start, mon_End, yearSave, selectedValue)));
     } else {
       ArtSweetAlert.show(
           context: context,
@@ -79,34 +81,14 @@ class _viewproductState extends State<viewproduct> {
             title: "เลือกมากกว่า 3 เดือนขึ้นไป",
           ));
     }
-    // final uri =
+  }
 
-    //     Uri.parse("http://${ipcon}/greenhousegas/insert_raw_materials.php");
-    // var request = http.MultipartRequest('POST', uri);
-    // request.fields['company_id'] = selectedValue;
-    // request.fields['car_id'] = caValue;
-    // request.fields['productname'] = productname.text;
-    // request.fields['productweight'] = productweight.text;
-
-    // var response = await request.send();
-    // if (response.statusCode == 200) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => staple()));
-    //   ArtSweetAlert.show(
-    //       context: context,
-    //       artDialogArgs: ArtDialogArgs(
-    //         type: ArtSweetAlertType.,
-    //         title: "เพิ่มข้อมูลสำเร็จ",
-    //       ));
-    // } else {
-    //   ArtSweetAlert.show(
-    //       context: context,
-    //       artDialogArgs: ArtDialogArgs(
-    //         type: ArtSweetAlertType.danger,
-    //         title: "เพิ่มข้อมูลไม่สำเร็จ",
-    //       ));
-    //   print(response.statusCode);
-    // }
+  Future gochart() async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                productChartRaw(mon_Start, mon_End, yearSave, selectedValue)));
   }
 
   Future getsubname() async {
@@ -132,7 +114,8 @@ class _viewproductState extends State<viewproduct> {
     }
     // print(subjectname);
   }
-Future getmonth() async {
+
+  Future getmonth() async {
     final response = await http
         .get(Uri.parse("http://${ipcon}/greenhousegas/get_month.php"));
     if (response.statusCode == 200) {
@@ -143,6 +126,7 @@ Future getmonth() async {
     }
     // print(subjectname);
   }
+
   @override
   Widget build(BuildContext context) {
     List<DropdownMenuItem<String>> companyname2 = companyname.map((e) {
@@ -158,7 +142,7 @@ Future getmonth() async {
       );
     }).toList();
 
-     List<DropdownMenuItem<String>> mon2 = mon.map((e) {
+    List<DropdownMenuItem<String>> mon2 = mon.map((e) {
       return DropdownMenuItem<String>(
         value: e['mon_id'].toString(),
         child: Text(e['mon_name'].toString()),
@@ -435,7 +419,7 @@ Future getmonth() async {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    uploaddata();
+                                    gochart();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

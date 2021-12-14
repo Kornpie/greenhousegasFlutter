@@ -102,7 +102,7 @@ class _viewtablewaterState extends State<viewtablewater> {
                   ),
                   Container(
                     child: Text(
-                        "การใช้ ไฟฟ้า" +
+                        "แสดงตารางข้อมูลการใช้น้ำประปา" +
                             mon_Start +
                             "-" +
                             mon_End +
@@ -244,7 +244,7 @@ class _viewtablewaterState extends State<viewtablewater> {
                                       left: 20, bottom: 5, right: 0, top: 5),
                                   height: 50,
                                   color: Colors.white,
-                                  child: Text("ใช้ไฟฟ้า",
+                                  child: Text("จำน้ำประปาที่ใช้ไป",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.black,
@@ -255,7 +255,7 @@ class _viewtablewaterState extends State<viewtablewater> {
                                       left: 20, bottom: 5, right: 0, top: 5),
                                   height: 50,
                                   color: Colors.white,
-                                  child: Text("ใช้ไฟฟ้า EQ",
+                                  child: Text("จำนวนน้ำประปา EQ",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.black,

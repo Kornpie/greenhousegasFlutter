@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:greenhousegas/show_lpg_chart.dart';
 import 'package:greenhousegas/staple.dart';
 import 'package:greenhousegas/view_table_use_elec.dart';
 import 'package:greenhousegas/view_table_use_lpg.dart';
@@ -84,6 +85,13 @@ class _UseLPGDataState extends State<UseLPGData> {
     //       ));
     //   print(response.statusCode);
     // }
+  }
+
+  Future gochart() async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => lpgChartRaw(mon_Start, mon_End, yaerSave)));
   }
 
   @override
@@ -354,7 +362,7 @@ class _UseLPGDataState extends State<UseLPGData> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    uploaddata();
+                                    gochart();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

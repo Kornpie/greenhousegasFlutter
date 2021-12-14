@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:greenhousegas/show_product.dart';
 import 'package:greenhousegas/show_water.dart';
+import 'package:greenhousegas/show_water2_chart.dart';
 import 'package:greenhousegas/staple.dart';
 import 'package:greenhousegas/view_table_product.dart';
 import 'package:greenhousegas/view_table_water.dart';
@@ -63,34 +64,13 @@ class _viewwater2State extends State<viewwater2> {
             title: "เลือกมากกว่า 3 เดือนขึ้นไป",
           ));
     }
-    // final uri =
+  }
 
-    //     Uri.parse("http://${ipcon}/greenhousegas/insert_raw_materials.php");
-    // var request = http.MultipartRequest('POST', uri);
-    // request.fields['company_id'] = selectedValue;
-    // request.fields['car_id'] = caValue;
-    // request.fields['productname'] = productname.text;
-    // request.fields['productweight'] = productweight.text;
-
-    // var response = await request.send();
-    // if (response.statusCode == 200) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => staple()));
-    //   ArtSweetAlert.show(
-    //       context: context,
-    //       artDialogArgs: ArtDialogArgs(
-    //         type: ArtSweetAlertType.,
-    //         title: "เพิ่มข้อมูลสำเร็จ",
-    //       ));
-    // } else {
-    //   ArtSweetAlert.show(
-    //       context: context,
-    //       artDialogArgs: ArtDialogArgs(
-    //         type: ArtSweetAlertType.danger,
-    //         title: "เพิ่มข้อมูลไม่สำเร็จ",
-    //       ));
-    //   print(response.statusCode);
-    // }
+  Future gochart() async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => water2Chart(mon_Start, mon_End, yearSave)));
   }
 
   Future getmonth() async {
@@ -355,7 +335,7 @@ class _viewwater2State extends State<viewwater2> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    uploaddata();
+                                    gochart();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

@@ -3,6 +3,9 @@ import 'package:greenhousegas/data.dart';
 import 'package:greenhousegas/insert__waterpollution.dart';
 import 'package:greenhousegas/insert__weatherpollution.dart';
 import 'package:greenhousegas/insert_industrialpollution_.dart';
+import 'package:greenhousegas/view_pollution_industry.dart';
+import 'package:greenhousegas/view_pollution_waste.dart';
+import 'package:greenhousegas/view_pollution_water.dart';
 
 import 'ipcon.dart';
 import 'dart:convert';
@@ -106,7 +109,7 @@ class showpollutionState extends State<showpollution> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return addwaterr();
+                                    return viewpollutionwater();
                                   }),
                                 );
                               },
@@ -149,7 +152,7 @@ class showpollutionState extends State<showpollution> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return weatherpollution();
+                                    return viewpollutionwaste();
                                   }),
                                 );
                               },
@@ -192,7 +195,7 @@ class showpollutionState extends State<showpollution> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) {
-                                    return industrialpollution();
+                                    return viewpollutionindustry();
                                   }),
                                 );
                               },

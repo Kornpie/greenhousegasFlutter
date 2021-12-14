@@ -66,7 +66,7 @@ class _UseLPGDataTableState extends State<UseLPGDataTable> {
 
   Future<List> getDataToTable() async {
     final response = await http.get(Uri.parse(
-        'http://$ipcon/greenhousegas/show_eg_lpg_table.php?eg_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}'));
+        'http://$ipcon/greenhousegas/show_eg_lpg_table.php?lpg_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}'));
     //print(response.body);
     if (response.statusCode == 200) {
       setState(() {

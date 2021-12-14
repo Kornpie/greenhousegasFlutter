@@ -143,7 +143,7 @@ class showdispalyState extends State<showdispaly> {
 
   Future<List> getegLPGData() async {
     final response = await http.get(Uri.parse(
-        'http://$ipcon/greenhousegas/show_eg_lpg_data.php?eg_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}'));
+        'http://$ipcon/greenhousegas/show_eg_lpg_data.php?lpg_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}'));
     if (response.statusCode == 200) {
       data_eg_lpgTable = json.decode(response.body);
     }
@@ -761,7 +761,7 @@ class showdispalyState extends State<showdispaly> {
                             child: const Center(
                                 child: Padding(
                               padding: const EdgeInsets.only(
-                                  left: 156.7, right: 10, top: 0, bottom: 0),
+                                  left: 230, right: 10, top: 0, bottom: 0),
                               child: Text('0',
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white)),
@@ -770,34 +770,6 @@ class showdispalyState extends State<showdispaly> {
                         ],
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 100,
-                          right: 0,
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await widget.browser.open(
-                                  url: Uri.parse(
-                                      "http://$ipcon/greenhousegas/Chart/chartPieAll.php?raw_data=${datarawTable[0]['raw_data2']}&product_data=${dataproductTable[0]['product_data2']}&waste_data=${datawasteTable[0]['waste_data2']}&elec_data=${data_eg_elecTable[0]['elec_data2']}&lpg_data=${data_eg_lpgTable[0]['lpg_data2']}&ng_data=${data_eg_NGTable[0]['ng_data2']}&water_data=${datawaterTable[0]['water_data2']}"),
-                                  options: ChromeSafariBrowserClassOptions(
-                                      android: AndroidChromeCustomTabsOptions(
-                                          addDefaultShareMenuItem: false),
-                                      ios: IOSSafariOptions(
-                                          barCollapsingEnabled: true)));
-                            },
-                            child: Text(
-                              "กราฟ",
-                              style: GoogleFonts.prompt(
-                                  fontSize: 22, color: Colors.white),
-                            )),
-                      ),
-                    ],
                   ),
                   Padding(
                     padding:
@@ -821,50 +793,68 @@ class showdispalyState extends State<showdispaly> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 60,
+                            ),
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chartPieAll.php?raw_data=${datarawTable[0]['raw_data2']}&product_data=${dataproductTable[0]['product_data2']}&waste_data=${datawasteTable[0]['waste_data2']}&elec_data=${data_eg_elecTable[0]['elec_data2']}&lpg_data=${data_eg_lpgTable[0]['lpg_data2']}&ng_data=${data_eg_NGTable[0]['ng_data2']}&water_data=${datawaterTable[0]['water_data2']}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Text(
+                                  "กราฟ",
+                                  style: GoogleFonts.prompt(
+                                      fontSize: 22, color: Colors.white),
+                                )),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 100,
+                            ),
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return AddData();
+                                    }),
+                                  );
+                                },
+                                child: Text(
+                                  "ข้อมูลอื่น",
+                                  style: GoogleFonts.prompt(
+                                      fontSize: 22, color: Colors.white),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
           ],
         ),
       ),
-      // floatingActionButton: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   children: [
-      //     Padding(
-      //       padding: const EdgeInsets.only(left: 40),
-      //       child: FloatingActionButton.extended(
-      //         heroTag: "btn1",
-      //         label: const Text('  กราฟ  '),
-      //         icon: const Icon(Icons.graphic_eq),
-      //         backgroundColor: Colors.teal,
-      //         onPressed: () {
-      //           Navigator.push(
-      //             context,
-      //             MaterialPageRoute(builder: (context) {
-      //               return AddData();
-      //             }),
-      //           );
-      //         },
-      //       ),
-      //     ),
-      //     FloatingActionButton.extended(
-      //       heroTag: "btn2",
-      //       label: const Text('ข้อมูลอื่น'),
-      //       icon: const Icon(Icons.data_usage),
-      //       backgroundColor: Colors.blue,
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) {
-      //             return AddData();
-      //           }),
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

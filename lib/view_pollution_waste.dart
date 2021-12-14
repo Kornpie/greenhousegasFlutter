@@ -1,8 +1,10 @@
 import 'dart:convert';
-import 'package:greenhousegas/show_electric_chart.dart';
+import 'package:greenhousegas/show_pollution.dart';
+import 'package:greenhousegas/show_product.dart';
+import 'package:greenhousegas/show_water.dart';
 import 'package:greenhousegas/staple.dart';
-import 'package:greenhousegas/view_table_use_elec.dart';
-import 'package:greenhousegas/view_use_energy.dart';
+import 'package:greenhousegas/view_table_product.dart';
+import 'package:greenhousegas/view_table_water.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'ipcon.dart';
@@ -13,40 +15,47 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'view_table_raw_materials.dart';
 
-class viewUseElec extends StatefulWidget {
+class viewpollutionwaste extends StatefulWidget {
   final list;
   final dataMonth;
   final i;
   final x;
-  viewUseElec({this.list, this.i, this.x, this.dataMonth});
+  viewpollutionwaste({this.list, this.i, this.x, this.dataMonth});
   @override
-  _viewUseElecState createState() => _viewUseElecState();
+  _viewpollutionwasteState createState() => _viewpollutionwasteState();
 }
 
-class _viewUseElecState extends State<viewUseElec> {
+class _viewpollutionwasteState extends State<viewpollutionwaste> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   List mon = [];
   List yea = [];
-
-  // TextEditingController mon_Start = TextEditingController();
-  //   TextEditingController mon_Start = TextEditingController();
   String mon_Start = null;
   String mon_End = null;
-  String yaerSave = null;
+  String yearSave = null;
+  
+  TextEditingController watercubic = TextEditingController();
 
   @override
+  void initState() {
+    getmonth();
+
+    super.initState();
+  }
+
+  List a = List.empty();
+  String id = "";
+
   Future uploaddata() async {
     final sum = int.parse(mon_End) - int.parse(mon_Start);
     print(sum);
 
     if (sum >= 2) {
-      // Navigator.pushNamed(context, '/viewTable', arguments: mon_End);
+      // Navigator.pushNamed(context, '/viewtableproduct', arguments: mon_End);
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  viewUseElecTable(mon_Start, mon_End, yaerSave)));
+                  viewtablewater(mon_Start, mon_End, yearSave)));
     } else {
       ArtSweetAlert.show(
           context: context,
@@ -55,20 +64,34 @@ class _viewUseElecState extends State<viewUseElec> {
             title: "เลือกมากกว่า 3 เดือนขึ้นไป",
           ));
     }
-  }
+    // final uri =
 
-  Future gochart() async {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => electricChart(mon_Start, mon_End, yaerSave)));
-  }
+    //     Uri.parse("http://${ipcon}/greenhousegas/insert_raw_materials.php");
+    // var request = http.MultipartRequest('POST', uri);
+    // request.fields['company_id'] = selectedValue;
+    // request.fields['car_id'] = caValue;
+    // request.fields['productname'] = productname.text;
+    // request.fields['productweight'] = productweight.text;
 
-  @override
-  void initState() {
-    getmonth();
-
-    super.initState();
+    // var response = await request.send();
+    // if (response.statusCode == 200) {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => staple()));
+    //   ArtSweetAlert.show(
+    //       context: context,
+    //       artDialogArgs: ArtDialogArgs(
+    //         type: ArtSweetAlertType.,
+    //         title: "เพิ่มข้อมูลสำเร็จ",
+    //       ));
+    // } else {
+    //   ArtSweetAlert.show(
+    //       context: context,
+    //       artDialogArgs: ArtDialogArgs(
+    //         type: ArtSweetAlertType.danger,
+    //         title: "เพิ่มข้อมูลไม่สำเร็จ",
+    //       ));
+    //   print(response.statusCode);
+    // }
   }
 
   Future getmonth() async {
@@ -126,7 +149,7 @@ class _viewUseElecState extends State<viewUseElec> {
                     height: 60,
                   ),
                   Container(
-                    child: Text("ข้อมูลการใช้พลังงาน",
+                    child: Text("แสดงข้อมูลมลพิษอากาศA",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -141,7 +164,7 @@ class _viewUseElecState extends State<viewUseElec> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 520,
+                    height: 600,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
@@ -161,9 +184,10 @@ class _viewUseElecState extends State<viewUseElec> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       right: 0, top: 15, bottom: 5),
-                                  child: Text("การใช้ ไฟฟ้า",
+                                  child: Text("ข้อมูลมลพิษอากาศA " + '',
                                       style: TextStyle(
-                                          fontSize: 20, color: Colors.black)),
+                                          fontSize: 16,
+                                          color: Colors.grey[700])),
                                 ),
                                 // Padding(
                                 //   padding: const EdgeInsets.only(
@@ -175,7 +199,7 @@ class _viewUseElecState extends State<viewUseElec> {
                                 //     child: TextFormField(
                                 //       validator: RequiredValidator(
                                 //           errorText: 'กรุณากรอกให้ถูกต้อง'),
-                                //       controller: rawname,
+                                //       controller: productname,
                                 //       decoration: InputDecoration(
                                 //         contentPadding: EdgeInsets.all(10),
                                 //         filled: true,
@@ -202,7 +226,7 @@ class _viewUseElecState extends State<viewUseElec> {
                                     isExpanded: true,
                                     hint: Center(
                                       child: Text(
-                                        "-----เดือนเริ่มต้น-----",
+                                        "-----เลือกเดือน-----",
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ),
@@ -268,13 +292,13 @@ class _viewUseElecState extends State<viewUseElec> {
                                         style: TextStyle(fontSize: 18),
                                       ),
                                     ),
-                                    value: yaerSave,
+                                    value: yearSave,
                                     items: yea,
                                     onChanged: (v) {
                                       setState(() {
-                                        yaerSave = v.toString();
+                                        yearSave = v.toString();
                                       });
-                                      print(yaerSave);
+                                      print(yearSave);
                                     },
                                   ),
                                 ),
@@ -297,7 +321,7 @@ class _viewUseElecState extends State<viewUseElec> {
                                 //     child: TextFormField(
                                 //       validator: RequiredValidator(
                                 //           errorText: 'กรุณากรอกให้ถูกต้อง'),
-                                //       controller: rawweight,
+                                //       controller: productweight,
                                 //       decoration: InputDecoration(
                                 //         contentPadding: EdgeInsets.all(10),
                                 //         filled: true,
@@ -310,9 +334,9 @@ class _viewUseElecState extends State<viewUseElec> {
                                   height: 20,
                                 ),
                                 GestureDetector(
-                                  onTap: () {
-                                    uploaddata();
-                                  },
+                                  // onTap: () {
+                                  //   uploaddata();
+                                  // },
                                   child: Container(
                                     alignment: Alignment.center,
                                     width: 150,
@@ -331,15 +355,9 @@ class _viewUseElecState extends State<viewUseElec> {
                                   height: 10,
                                 ),
                                 GestureDetector(
-                                  onTap: () {
-                                    gochart();
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(builder: (context) {
-                                    //     return RawCharts();
-                                    //   }),
-                                    // );
-                                  },
+                                  // onTap: () {
+                                  //   uploaddata();
+                                  // },
                                   child: Container(
                                     alignment: Alignment.center,
                                     width: 150,
@@ -362,41 +380,34 @@ class _viewUseElecState extends State<viewUseElec> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
             Padding(
-              padding: const EdgeInsets.only(left: 225, right: 0, bottom: 0),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return viewenergy();
-                        }),
-                      );
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 155,
-                      height: 43,
-                      decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("ข้อมูลอื่น",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                ],
+              padding:
+                  const EdgeInsets.only(left: 150, right: 0, top: 0, bottom: 0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return showpollution();
+                    }),
+                  );
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  // width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.all(25),
+                  height: 40,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.yellow[500], // background
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Text("ข้อมูลอื่นๆ",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
             ),
           ],
         ),
