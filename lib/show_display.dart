@@ -73,6 +73,8 @@ class showdispalyState extends State<showdispaly> {
   List datawasteTable = [];
   List dataproductTable = [];
   List datawaterTable = [];
+  List datawater2Table = [];
+  List datawater3Table = [];
   List data_eg_elecTable = [];
   List data_eg_lpgTable = [];
   List data_eg_NGTable = [];
@@ -97,6 +99,8 @@ class showdispalyState extends State<showdispaly> {
     getWasteData();
     getProductData();
     getwatertData();
+    getwater2Data();
+    getwater3Data();
     getegElecData();
     getegLPGData();
     getegNGData();
@@ -168,6 +172,24 @@ class showdispalyState extends State<showdispaly> {
     return datawaterTable;
   }
 
+  Future<List> getwater2Data() async {
+    final response = await http.get(Uri.parse(
+        'http://$ipcon/greenhousegas/show_water2_data.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}'));
+    if (response.statusCode == 200) {
+      datawater2Table = json.decode(response.body);
+    }
+    return datawater2Table;
+  }
+
+  Future<List> getwater3Data() async {
+    final response = await http.get(Uri.parse(
+        'http://$ipcon/greenhousegas/show_water3_data.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}'));
+    if (response.statusCode == 200) {
+      datawater3Table = json.decode(response.body);
+    }
+    return datawater3Table;
+  }
+
   @override
   Widget build(BuildContext context) {
     // resultDataraw = double.parse(datarawTable[0]['raw_data1']) +
@@ -230,21 +252,33 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  color: Colors.blueGrey, // background
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: const Center(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 0, right: 0, top: 0, bottom: 0),
-                                child: Text('       กราฟ        ',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white)),
-                              )),
+                          InkWell(
+                            onTap: () async {
+                              await widget.browser.open(
+                                  url: Uri.parse(
+                                      "http://$ipcon/greenhousegas/Chart/chartRaw_total.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                  options: ChromeSafariBrowserClassOptions(
+                                      android: AndroidChromeCustomTabsOptions(
+                                          addDefaultShareMenuItem: false),
+                                      ios: IOSSafariOptions(
+                                          barCollapsingEnabled: true)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey, // background
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: const Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 0, right: 0, top: 0, bottom: 0),
+                                  child: Text('       กราฟ        ',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white)),
+                                )),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -313,21 +347,33 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  color: Colors.blueGrey, // background
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: const Center(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 0, right: 0, top: 0, bottom: 0),
-                                child: Text('       กราฟ        ',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white)),
-                              )),
+                          InkWell(
+                            onTap: () async {
+                              await widget.browser.open(
+                                  url: Uri.parse(
+                                      "http://$ipcon/greenhousegas/Chart/chart_total_product.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                  options: ChromeSafariBrowserClassOptions(
+                                      android: AndroidChromeCustomTabsOptions(
+                                          addDefaultShareMenuItem: false),
+                                      ios: IOSSafariOptions(
+                                          barCollapsingEnabled: true)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey, // background
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: const Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 0, right: 0, top: 0, bottom: 0),
+                                  child: Text('       กราฟ        ',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white)),
+                                )),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -397,21 +443,33 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  color: Colors.blueGrey, // background
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: const Center(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 0, right: 0, top: 0, bottom: 0),
-                                child: Text('       กราฟ        ',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white)),
-                              )),
+                          InkWell(
+                            onTap: () async {
+                              await widget.browser.open(
+                                  url: Uri.parse(
+                                      "http://$ipcon/greenhousegas/Chart/chart_total_wasterecycle.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                  options: ChromeSafariBrowserClassOptions(
+                                      android: AndroidChromeCustomTabsOptions(
+                                          addDefaultShareMenuItem: false),
+                                      ios: IOSSafariOptions(
+                                          barCollapsingEnabled: true)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey, // background
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: const Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 0, right: 0, top: 0, bottom: 0),
+                                  child: Text('       กราฟ        ',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white)),
+                                )),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -481,21 +539,33 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              height: 90,
-                              decoration: BoxDecoration(
-                                  color: Colors.blueGrey, // background
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: const Center(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 0, right: 0, top: 0, bottom: 0),
-                                child: Text('       กราฟ        ',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white)),
-                              )),
+                          InkWell(
+                            onTap: () async {
+                              await widget.browser.open(
+                                  url: Uri.parse(
+                                      "http://$ipcon/greenhousegas/Chart/chart_total_show_eg.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                  options: ChromeSafariBrowserClassOptions(
+                                      android: AndroidChromeCustomTabsOptions(
+                                          addDefaultShareMenuItem: false),
+                                      ios: IOSSafariOptions(
+                                          barCollapsingEnabled: true)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey, // background
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: const Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 0, right: 0, top: 0, bottom: 0),
+                                  child: Text('       กราฟ        ',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white)),
+                                )),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -649,59 +719,155 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 4),
-                            child: Container(
-                              height: 28,
-                              decoration: BoxDecoration(
-                                  color: Colors.blueGrey, // background
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: const Center(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 0, right: 0, top: 0, bottom: 0),
-                                child: Text('       กราฟ        ',
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white)),
-                              )),
+                          InkWell(
+                            onTap: () async {
+                              await widget.browser.open(
+                                  url: Uri.parse(
+                                      "http://$ipcon/greenhousegas/Chart/chart_total_water.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}"),
+                                  options: ChromeSafariBrowserClassOptions(
+                                      android: AndroidChromeCustomTabsOptions(
+                                          addDefaultShareMenuItem: false),
+                                      ios: IOSSafariOptions(
+                                          barCollapsingEnabled: true)));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Container(
+                                height: 28,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey, // background
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: const Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 0, right: 0, top: 0, bottom: 0),
+                                  child: Text('       กราฟ        ',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white)),
+                                )),
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          FutureBuilder(
-                            future: getwatertData(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                return Container(
-                                  height: 30,
-                                  width: 260,
-                                  decoration: BoxDecoration(
-                                    color: Colors.green[600], // background
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 156.7,
-                                          right: 10,
-                                          top: 0,
-                                          bottom: 0),
-                                      child: Text(
-                                          datawaterTable[0]['water_data2'],
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white)),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                            },
+                          Column(
+                            children: [
+                              FutureBuilder(
+                                future: getwatertData(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Container(
+                                      height: 30,
+                                      width: 260,
+                                      decoration: BoxDecoration(
+                                        color: Colors.green[600], // background
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0),
+                                          child: Text(
+                                              "การใช้น้ำประปานิคมฯ " +
+                                                  datawaterTable[0]
+                                                      ['water_data2'],
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              FutureBuilder(
+                                future: getwater2Data(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Container(
+                                      height: 30,
+                                      width: 260,
+                                      decoration: BoxDecoration(
+                                        color: Colors.green[600], // background
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0),
+                                          child: Text(
+                                              "การใช้น้ำประปาอ่อน " +
+                                                  datawater2Table[0]
+                                                      ['water2_data2'],
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              FutureBuilder(
+                                future: getwater3Data(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Container(
+                                      height: 30,
+                                      width: 260,
+                                      decoration: BoxDecoration(
+                                        color: Colors.green[600], // background
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0),
+                                          child: Text(
+                                              "การใช้น้ำRO " +
+                                                  datawater3Table[0]
+                                                      ['water3_data2'],
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -775,6 +941,87 @@ class showdispalyState extends State<showdispaly> {
                     padding:
                         const EdgeInsets.only(left: 8, right: 8, bottom: 3),
                     child: GestureDetector(
+                      child: Row(
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      await widget.browser.open(
+                                          url: Uri.parse(
+                                              "http://$ipcon/greenhousegas/Chart/chartPieAll.php?raw_data=${datarawTable[0]['raw_data2']}&product_data=${dataproductTable[0]['product_data2']}&waste_data=${datawasteTable[0]['waste_data2']}&elec_data=${data_eg_elecTable[0]['elec_data2']}&lpg_data=${data_eg_lpgTable[0]['lpg_data2']}&ng_data=${data_eg_NGTable[0]['ng_data2']}&water_data=${datawaterTable[0]['water_data2']}&water2_data=${datawater2Table[0]['water2_data2']}&water3_data=${datawater3Table[0]['water3_data2']}"),
+                                          options: ChromeSafariBrowserClassOptions(
+                                              android:
+                                                  AndroidChromeCustomTabsOptions(
+                                                      addDefaultShareMenuItem:
+                                                          false),
+                                              ios: IOSSafariOptions(
+                                                  barCollapsingEnabled: true)));
+                                    },
+                                    child: Text(
+                                      "กราฟรวม",
+                                      style: GoogleFonts.prompt(
+                                          fontSize: 18, color: Colors.white),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      await widget.browser.open(
+                                          url: Uri.parse(
+                                              "http://$ipcon/greenhousegas/Chart/chartPieDist.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}&useelec=${data_eg_elecTable[0]['elec_data2']}&useNg=${data_eg_NGTable[0]['ng_data2']}&useWater1=${datawaterTable[0]['water_data2']}&useWater2=${datawater2Table[0]['water2_data2']}&useWater3=${datawater3Table[0]['water3_data2']}"),
+                                          options: ChromeSafariBrowserClassOptions(
+                                              android:
+                                                  AndroidChromeCustomTabsOptions(
+                                                      addDefaultShareMenuItem:
+                                                          false),
+                                              ios: IOSSafariOptions(
+                                                  barCollapsingEnabled: true)));
+                                    },
+                                    child: Text(
+                                      "กราฟระยะทาง",
+                                      style: GoogleFonts.prompt(
+                                          fontSize: 18, color: Colors.white),
+                                    )),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return AddData();
+                                        }),
+                                      );
+                                    },
+                                    child: Text(
+                                      "ข้อมูลอื่น",
+                                      style: GoogleFonts.prompt(
+                                          fontSize: 18, color: Colors.white),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 8, right: 8, bottom: 3),
+                    child: GestureDetector(
                       child: Container(
                         height: 75,
                         decoration: BoxDecoration(
@@ -795,60 +1042,6 @@ class showdispalyState extends State<showdispaly> {
                   SizedBox(
                     height: 5,
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 60,
-                            ),
-                            child: ElevatedButton(
-                                onPressed: () async {
-                                  await widget.browser.open(
-                                      url: Uri.parse(
-                                          "http://$ipcon/greenhousegas/Chart/chartPieAll.php?raw_data=${datarawTable[0]['raw_data2']}&product_data=${dataproductTable[0]['product_data2']}&waste_data=${datawasteTable[0]['waste_data2']}&elec_data=${data_eg_elecTable[0]['elec_data2']}&lpg_data=${data_eg_lpgTable[0]['lpg_data2']}&ng_data=${data_eg_NGTable[0]['ng_data2']}&water_data=${datawaterTable[0]['water_data2']}"),
-                                      options: ChromeSafariBrowserClassOptions(
-                                          android:
-                                              AndroidChromeCustomTabsOptions(
-                                                  addDefaultShareMenuItem:
-                                                      false),
-                                          ios: IOSSafariOptions(
-                                              barCollapsingEnabled: true)));
-                                },
-                                child: Text(
-                                  "กราฟ",
-                                  style: GoogleFonts.prompt(
-                                      fontSize: 22, color: Colors.white),
-                                )),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 100,
-                            ),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return AddData();
-                                    }),
-                                  );
-                                },
-                                child: Text(
-                                  "ข้อมูลอื่น",
-                                  style: GoogleFonts.prompt(
-                                      fontSize: 22, color: Colors.white),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
                 ],
               ),
             ),
