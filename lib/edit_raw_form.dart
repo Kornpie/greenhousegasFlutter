@@ -20,6 +20,7 @@ class editrawForm extends StatefulWidget {
 
 class _editrawFormState extends State<editrawForm> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  List factors = [];
   String rawdate = null;
   String raw_month = null;
   String raw_yaer = null;
@@ -34,6 +35,7 @@ class _editrawFormState extends State<editrawForm> {
   void initState() {
     print(widget.list[widget.i]);
     jojo();
+    geteq();
     super.initState();
   }
 
@@ -54,7 +56,8 @@ class _editrawFormState extends State<editrawForm> {
   }
 
   Future uploaddata() async {
-    final data_raw_eq = double.parse(rawweight.text) * 1.5;
+    final data_raw_eq =
+        double.parse(rawweight.text) * double.parse(factors[0]['factor_value']);
     print(data_raw_eq);
 
     final uri =
@@ -83,6 +86,18 @@ class _editrawFormState extends State<editrawForm> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=RawEQ"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   @override

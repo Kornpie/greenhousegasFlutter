@@ -94,14 +94,14 @@ class _electricChartState extends State<electricChart> {
             onPressed: () async {
               await widget.browser.open(
                   url: Uri.parse(
-                      "http://$ipcon/greenhousegas/Chart/chartshow_elec.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}"),
+                      "http://$ipcon/greenhousegas/Chart/chart_elec.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}"),
                   options: ChromeSafariBrowserClassOptions(
                       android: AndroidChromeCustomTabsOptions(
                           addDefaultShareMenuItem: false),
                       ios: IOSSafariOptions(barCollapsingEnabled: true)));
             },
             child: Text(
-              "ไปยังหน้าแสดงกราฟของวัตถุดิบ",
+              "ไปยังหน้าแสดงกราฟ",
               style: GoogleFonts.prompt(fontSize: 22, color: Colors.white),
             )),
       ),

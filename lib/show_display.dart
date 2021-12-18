@@ -539,34 +539,111 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          InkWell(
-                            onTap: () async {
-                              await widget.browser.open(
-                                  url: Uri.parse(
-                                      "http://$ipcon/greenhousegas/Chart/chart_total_show_eg.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
-                                  options: ChromeSafariBrowserClassOptions(
-                                      android: AndroidChromeCustomTabsOptions(
-                                          addDefaultShareMenuItem: false),
-                                      ios: IOSSafariOptions(
-                                          barCollapsingEnabled: true)));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 4),
-                              child: Container(
-                                height: 28,
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey, // background
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: const Center(
-                                    child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 0, right: 0, top: 0, bottom: 0),
-                                  child: Text('       กราฟ        ',
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.white)),
-                                )),
+                          Column(
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chart_total_elec.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey, // background
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, right: 0, top: 0, bottom: 0),
+                                      child: Text('       กราฟ        ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                    )),
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chart_total_lpg.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey, // background
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, right: 0, top: 0, bottom: 0),
+                                      child: Text('       กราฟ        ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chart_total_NG.php?year=${yaerSave}&mon_start=${mon_Start}&mon_end=${mon_End}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey, // background
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, right: 0, top: 0, bottom: 0),
+                                      child: Text('       กราฟ        ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: 10,
@@ -588,8 +665,8 @@ class showdispalyState extends State<showdispaly> {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 100,
-                                              right: 10,
+                                              left: 0,
+                                              right: 0,
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
@@ -627,8 +704,8 @@ class showdispalyState extends State<showdispaly> {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 100,
-                                              right: 10,
+                                              left: 0,
+                                              right: 0,
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
@@ -666,8 +743,8 @@ class showdispalyState extends State<showdispaly> {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 100,
-                                              right: 10,
+                                              left: 0,
+                                              right: 0,
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
@@ -719,34 +796,111 @@ class showdispalyState extends State<showdispaly> {
                     child: GestureDetector(
                       child: Row(
                         children: [
-                          InkWell(
-                            onTap: () async {
-                              await widget.browser.open(
-                                  url: Uri.parse(
-                                      "http://$ipcon/greenhousegas/Chart/chart_total_water.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}"),
-                                  options: ChromeSafariBrowserClassOptions(
-                                      android: AndroidChromeCustomTabsOptions(
-                                          addDefaultShareMenuItem: false),
-                                      ios: IOSSafariOptions(
-                                          barCollapsingEnabled: true)));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 4),
-                              child: Container(
-                                height: 28,
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey, // background
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: const Center(
-                                    child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 0, right: 0, top: 0, bottom: 0),
-                                  child: Text('       กราฟ        ',
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.white)),
-                                )),
+                          Column(
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chart_total_water1.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey, // background
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, right: 0, top: 0, bottom: 0),
+                                      child: Text('       กราฟ        ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                    )),
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chart_total_water2.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey, // background
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, right: 0, top: 0, bottom: 0),
+                                      child: Text('       กราฟ        ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await widget.browser.open(
+                                      url: Uri.parse(
+                                          "http://$ipcon/greenhousegas/Chart/chart_total_water3.php?water_year=${yaerSave}&mon_Start=${mon_Start}&mon_End=${mon_End}"),
+                                      options: ChromeSafariBrowserClassOptions(
+                                          android:
+                                              AndroidChromeCustomTabsOptions(
+                                                  addDefaultShareMenuItem:
+                                                      false),
+                                          ios: IOSSafariOptions(
+                                              barCollapsingEnabled: true)));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 4),
+                                  child: Container(
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blueGrey, // background
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, right: 0, top: 0, bottom: 0),
+                                      child: Text('       กราฟ        ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white)),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: 10,
@@ -768,7 +922,7 @@ class showdispalyState extends State<showdispaly> {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 20,
+                                              left: 0,
                                               right: 0,
                                               top: 0,
                                               bottom: 0),
@@ -807,7 +961,7 @@ class showdispalyState extends State<showdispaly> {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 20,
+                                              left: 0,
                                               right: 0,
                                               top: 0,
                                               bottom: 0),
@@ -846,7 +1000,7 @@ class showdispalyState extends State<showdispaly> {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 20,
+                                              left: 0,
                                               right: 0,
                                               top: 0,
                                               bottom: 0),

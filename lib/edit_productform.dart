@@ -21,6 +21,7 @@ class editproductForm extends StatefulWidget {
 
 class _editproductFormState extends State<editproductForm> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  List factors = [];
   String product_day = null;
   String product_month = null;
   String product_year = null;
@@ -35,6 +36,7 @@ class _editproductFormState extends State<editproductForm> {
   void initState() {
     print(widget.list[widget.i]);
     jojo();
+    geteq();
     super.initState();
   }
 
@@ -56,7 +58,8 @@ class _editproductFormState extends State<editproductForm> {
   }
 
   Future uploaddata() async {
-    final data_product_eq = double.parse(product_weight.text) * 1.5;
+    final data_product_eq = double.parse(product_weight.text) *
+        double.parse(factors[0]['factor_value']);
     print(data_product_eq);
 
     final uri = Uri.parse("http://${ipcon}/greenhousegas/edit_product.php");
@@ -84,6 +87,18 @@ class _editproductFormState extends State<editproductForm> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=ProductEq"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   @override

@@ -21,6 +21,7 @@ class editwasteForm extends StatefulWidget {
 
 class _editwasteFormState extends State<editwasteForm> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  List factors = [];
   String waste_day = null;
   String waste_month = null;
   String waste_year = null;
@@ -34,6 +35,7 @@ class _editwasteFormState extends State<editwasteForm> {
   @override
   void initState() {
     print(widget.list[widget.i]);
+    geteq();
     jojo();
     super.initState();
   }
@@ -56,7 +58,8 @@ class _editwasteFormState extends State<editwasteForm> {
   }
 
   Future uploaddata() async {
-    final data_waste_eq = double.parse(waste_weight.text) * 1.5;
+    final data_waste_eq = double.parse(waste_weight.text) *
+        double.parse(factors[0]['factor_value']);
     print(data_waste_eq);
 
     final uri = Uri.parse("http://${ipcon}/greenhousegas/edit_waste.php");
@@ -84,6 +87,18 @@ class _editwasteFormState extends State<editwasteForm> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=WasteEq"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   @override

@@ -244,7 +244,7 @@ class _UseNGDataTableState extends State<UseNGDataTable> {
                                       left: 20, bottom: 5, right: 0, top: 5),
                                   height: 50,
                                   color: Colors.white,
-                                  child: Text("ใช้LPG",
+                                  child: Text("ใช้NG",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.black,
@@ -255,7 +255,7 @@ class _UseNGDataTableState extends State<UseNGDataTable> {
                                       left: 20, bottom: 5, right: 0, top: 5),
                                   height: 50,
                                   color: Colors.white,
-                                  child: Text("ใช้LPG EQ",
+                                  child: Text("ใช้NG EQ",
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.black,

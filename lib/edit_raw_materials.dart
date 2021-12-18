@@ -76,7 +76,7 @@ class _editmeterialsState extends State<editmeterials> {
     // var current_mon = now.month;
     // print(monSave);
     // final current_mon = "6";
-    final comid = "1";
+    final comid = idcom;
     //print(comid);
     final response = await http.get(Uri.parse(
         "http://$ipcon/greenhousegas/selectrawforedit.php?comid=${comid}&month=${monSave}"));

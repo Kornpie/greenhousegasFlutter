@@ -25,6 +25,7 @@ class _addWasteState extends State<addWaste> {
   List companyname = [];
   List car = [];
   List carname = [];
+  List factors = [];
   List mon = [];
   List yea = [];
   List day = [];
@@ -43,6 +44,7 @@ class _addWasteState extends State<addWaste> {
   void initState() {
     getsubname();
     getcar();
+    geteq();
     getmonth();
     print(widget.list[widget.i]);
     jojo();
@@ -62,24 +64,10 @@ class _addWasteState extends State<addWaste> {
   }
 
   Future uploaddata() async {
-    final date_regis = monSave + '-' + yeaSave;
-    // print(date_regis);
-    final data_waste_eq = double.parse(waste_weight.text) * 1.5;
-    // print(data_waste_eq);
-    final data_distance_eq = double.parse(waste_distance.text) * 2;
-    // print(data_distance_eq);
+    final data_waste_eq = double.parse(waste_weight.text) *
+        double.parse(factors[0]['factor_value']);
+    print(data_waste_eq);
 
-    print(selectedValue);
-    print(waste_ename.text);
-    print(waste_weight.text);
-    print(data_waste_eq.toString());
-    print(waste_distance.text);
-    print(waste_distance.text);
-    print(waste_ename.text);
-
-    final total = data_waste_eq + data_distance_eq;
-    print(total);
-    print(waste_id);
     final uri =
         Uri.parse("http://${ipcon}/greenhousegas/add_waste_recycle.php");
     var request = http.MultipartRequest('POST', uri);
@@ -91,7 +79,7 @@ class _addWasteState extends State<addWaste> {
     request.fields['waste_eq'] = data_waste_eq.toString();
     request.fields['waste_distance'] = waste_distance.text;
     // request.fields['waste_distance_eq'] = data_distance_eq.toString();
-    request.fields['waste_total_eq'] = total.toString();
+    // request.fields['waste_total_eq'] = total.toString();
     request.fields['waste_car_codeid'] = car_codeid.text;
     request.fields['waste_day'] = daySave;
     request.fields['waste_month'] = monSave;
@@ -116,6 +104,18 @@ class _addWasteState extends State<addWaste> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=WasteEq"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getsubname() async {

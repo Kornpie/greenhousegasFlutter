@@ -40,8 +40,8 @@ Future main() async {
     ]);
   }
 
-  runApp(
-      MaterialApp(home: productChartRaw(mon_Start, mon_End, yearSave, selectedValue)));
+  runApp(MaterialApp(
+      home: productChartRaw(mon_Start, mon_End, yearSave, selectedValue)));
 }
 
 class productChartRaw extends StatefulWidget {
@@ -95,14 +95,14 @@ class _productChartRawState extends State<productChartRaw> {
             onPressed: () async {
               await widget.browser.open(
                   url: Uri.parse(
-                      "http://$ipcon/greenhousegas/Chart/chartRawproduct.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}&comid=${selectedValue}"),
+                      "http://$ipcon/greenhousegas/Chart/chart_product.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}&comid=${selectedValue}"),
                   options: ChromeSafariBrowserClassOptions(
                       android: AndroidChromeCustomTabsOptions(
                           addDefaultShareMenuItem: false),
                       ios: IOSSafariOptions(barCollapsingEnabled: true)));
             },
             child: Text(
-              "ไปยังหน้าแสดงกราฟของวัตถุดิบ",
+              "ไปยังหน้าแสดงกราฟ",
               style: GoogleFonts.prompt(fontSize: 22, color: Colors.white),
             )),
       ),

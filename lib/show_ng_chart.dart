@@ -40,8 +40,7 @@ Future main() async {
     ]);
   }
 
-  runApp(
-      MaterialApp(home: ngChartRaw(mon_Start, mon_End, yearSave)));
+  runApp(MaterialApp(home: ngChartRaw(mon_Start, mon_End, yearSave)));
 }
 
 class ngChartRaw extends StatefulWidget {
@@ -54,8 +53,8 @@ class ngChartRaw extends StatefulWidget {
     this.mon_Start = mon_Start;
     this.mon_End = mon_End;
     this.yearSave = yearSave;
-    
-    print(mon_Start + mon_End + "Chart"  + yearSave);
+
+    print(mon_Start + mon_End + "Chart" + yearSave);
   }
 
   @override
@@ -71,7 +70,7 @@ class _ngChartRawState extends State<ngChartRaw> {
   _ngChartRawState(String mon_Start, mon_End, yearSave) {
     this.mon_Start = mon_Start;
     this.mon_End = mon_End;
-  
+
     this.yearSave = yearSave;
   }
 
@@ -95,14 +94,14 @@ class _ngChartRawState extends State<ngChartRaw> {
             onPressed: () async {
               await widget.browser.open(
                   url: Uri.parse(
-                      "http://$ipcon/greenhousegas/Chart/chartRawshow_ng.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}"),
+                      "http://$ipcon/greenhousegas/Chart/chart_ng.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}"),
                   options: ChromeSafariBrowserClassOptions(
                       android: AndroidChromeCustomTabsOptions(
                           addDefaultShareMenuItem: false),
                       ios: IOSSafariOptions(barCollapsingEnabled: true)));
             },
             child: Text(
-              "ไปยังหน้าแสดงกราฟของวัตถุดิบ",
+              "ไปยังหน้าแสดงกราฟ",
               style: GoogleFonts.prompt(fontSize: 22, color: Colors.white),
             )),
       ),

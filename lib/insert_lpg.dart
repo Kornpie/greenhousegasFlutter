@@ -25,6 +25,7 @@ class _formaddLPGState extends State<formaddLPG> {
   List companyname = [];
   List car = [];
   List carname = [];
+  List factors = [];
   List day = [];
   List mon = [];
   List yea = [];
@@ -46,6 +47,7 @@ class _formaddLPGState extends State<formaddLPG> {
     // print(widget.list[widget.i]);
     // jojo();
     getmonth();
+    geteq();
     super.initState();
   }
 
@@ -53,16 +55,10 @@ class _formaddLPGState extends State<formaddLPG> {
   String id = "";
 
   Future uploaddata() async {
-    final date_regis = monSave + '-' + yeaSave;
-    print(date_regis);
-    final data_lpg_eq = double.parse(lpg_weight.text) * 1.5;
+    final data_lpg_eq = double.parse(lpg_weight.text) *
+        double.parse(factors[0]['factor_value']);
     print(data_lpg_eq);
-    final data_distance_eq = double.parse(lpg_distance.text) * 2;
-    print(data_distance_eq);
 
-    final total = data_lpg_eq + data_distance_eq;
-    print(total);
-    print(lpg_id);
     final uri = Uri.parse("http://${ipcon}/greenhousegas/add_lpg.php");
     var request = http.MultipartRequest('POST', uri);
     // request.fields['lpg_id'] = widget.list[widget.i]['lpg_id'];
@@ -73,7 +69,7 @@ class _formaddLPGState extends State<formaddLPG> {
     request.fields['lpg_weight_eq'] = data_lpg_eq.toString();
     request.fields['lpg_distance'] = lpg_distance.text;
     // request.fields['lpg_distance_eq'] = data_distance_eq.toString();
-    request.fields['lpg_total_eq'] = total.toString();
+    // request.fields['lpg_total_eq'] = total.toString();
     request.fields['lpg_car_codeid'] = car_codeid.text;
     request.fields['lpg_day'] = daySave;
     request.fields['lpg_month'] = monSave;
@@ -98,6 +94,18 @@ class _formaddLPGState extends State<formaddLPG> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=LpgEq"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getsubname() async {

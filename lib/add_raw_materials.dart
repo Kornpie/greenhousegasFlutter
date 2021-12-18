@@ -22,6 +22,7 @@ class _addmeterialsState extends State<addmeterials> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List company = [];
   List companyname = [];
+  List factors = [];
   List car = [];
   List carname = [];
   List day = [];
@@ -44,6 +45,7 @@ class _addmeterialsState extends State<addmeterials> {
     getcar();
     print(widget.list[widget.i]);
     jojo();
+    geteq();
     getmonth();
     super.initState();
   }
@@ -65,16 +67,19 @@ class _addmeterialsState extends State<addmeterials> {
     //   return
     // } else {
     // }
-    final date_regis = monSave + '-' + yeaSave;
-    print(date_regis);
-    final data_raw_eq = double.parse(rawweight.text) * 1.5;
-    print(data_raw_eq);
-    final data_distance_eq = double.parse(raw_distance.text) * 2;
-    print(data_distance_eq);
 
-    final total = data_raw_eq + data_distance_eq;
-    print(total);
-    print(raw_id);
+    // final factor = double.parse(factors[0]['factor_value']);
+    // print(factor);
+
+    // final date_regis = monSave + '-' + yeaSave;
+    // print(date_regis);
+    final data_raw_eq =
+        double.parse(rawweight.text) * double.parse(factors[0]['factor_value']);
+    print(data_raw_eq);
+
+    // final total = data_raw_eq + data_distance_eq;
+    // print(total);
+    // print(raw_id);
     final uri =
         Uri.parse("http://${ipcon}/greenhousegas/add_raw_materials.php");
     var request = http.MultipartRequest('POST', uri);
@@ -86,7 +91,7 @@ class _addmeterialsState extends State<addmeterials> {
     request.fields['raw_eq'] = data_raw_eq.toString();
     request.fields['raw_distance'] = raw_distance.text;
     // request.fields['raw_distance_eq'] = data_distance_eq.toString();
-    request.fields['raw_total_eq'] = total.toString();
+    //request.fields['raw_total_eq'] = total.toString();
     request.fields['raw_car_codeid'] = car_codeid.text;
     request.fields['raw_date'] = daySave;
     request.fields['raw_month'] = monSave;
@@ -123,6 +128,18 @@ class _addmeterialsState extends State<addmeterials> {
       });
     }
     // print(subjectname);
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=RawEQ"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getmonth() async {

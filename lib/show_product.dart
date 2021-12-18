@@ -276,7 +276,7 @@ class _ItemlistState extends State<Itemlist> {
                                 )));
                   },
                   title: Text(
-                      'ข้อมูลสินค้า:' +
+                      'PET FILM:' +
                           '' +
                           widget.list[i]['product_company_origin'],
                       style: GoogleFonts.prompt(

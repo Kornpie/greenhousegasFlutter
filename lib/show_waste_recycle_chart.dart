@@ -40,8 +40,8 @@ Future main() async {
     ]);
   }
 
-  runApp(
-      MaterialApp(home: wasterecycleChartRaw(mon_Start, mon_End, yearSave, selectedValue)));
+  runApp(MaterialApp(
+      home: wasterecycleChartRaw(mon_Start, mon_End, yearSave, selectedValue)));
 }
 
 class wasterecycleChartRaw extends StatefulWidget {
@@ -59,8 +59,8 @@ class wasterecycleChartRaw extends StatefulWidget {
   }
 
   @override
-  _wasterecycleChartRawState createState() =>
-      new _wasterecycleChartRawState(mon_Start, mon_End, selectedValue, yearSave);
+  _wasterecycleChartRawState createState() => new _wasterecycleChartRawState(
+      mon_Start, mon_End, selectedValue, yearSave);
 }
 
 class _wasterecycleChartRawState extends State<wasterecycleChartRaw> {
@@ -68,7 +68,8 @@ class _wasterecycleChartRawState extends State<wasterecycleChartRaw> {
   String mon_End;
   String selectedValue;
   String yearSave;
-  _wasterecycleChartRawState(String mon_Start, mon_End, selectedValue, yearSave) {
+  _wasterecycleChartRawState(
+      String mon_Start, mon_End, selectedValue, yearSave) {
     this.mon_Start = mon_Start;
     this.mon_End = mon_End;
     this.selectedValue = selectedValue;
@@ -95,14 +96,14 @@ class _wasterecycleChartRawState extends State<wasterecycleChartRaw> {
             onPressed: () async {
               await widget.browser.open(
                   url: Uri.parse(
-                      "http://$ipcon/greenhousegas/Chart/chartRawwasterecycle.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}&comid=${selectedValue}"),
+                      "http://$ipcon/greenhousegas/Chart/chart_wasterecycle.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}&comid=${selectedValue}"),
                   options: ChromeSafariBrowserClassOptions(
                       android: AndroidChromeCustomTabsOptions(
                           addDefaultShareMenuItem: false),
                       ios: IOSSafariOptions(barCollapsingEnabled: true)));
             },
             child: Text(
-              "ไปยังหน้าแสดงกราฟของวัตถุดิบ",
+              "ไปยังหน้าแสดงกราฟ",
               style: GoogleFonts.prompt(fontSize: 22, color: Colors.white),
             )),
       ),

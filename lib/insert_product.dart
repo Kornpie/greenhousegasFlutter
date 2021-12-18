@@ -24,6 +24,7 @@ class _addproductState extends State<addproduct> {
   List company = [];
   List companyname = [];
   List car = [];
+  List factors = [];
   List carname = [];
   List mon = [];
   List yea = [];
@@ -44,6 +45,7 @@ class _addproductState extends State<addproduct> {
     getsubname();
     getcar();
     getmonth();
+    geteq();
     print(widget.list[widget.i]);
     jojo();
     super.initState();
@@ -55,23 +57,17 @@ class _addproductState extends State<addproduct> {
     selectedValue = widget.list[widget.i]['product_company_origin'];
     caValue = widget.list[widget.i]['product_cars'];
     product_id = widget.list[widget.i]['product_id'];
-    productname = TextEditingController(text: "ข้อมูลสินค้า");
+    productname = TextEditingController(text: "PET FILM");
     // productname = TextEditingController(text: widget.list[widget.i]['product_name']);
     // productweight =
     //     TextEditingController(text: widget.list[widget.i]['product_weight']);
   }
 
   Future uploaddata() async {
-    final date_regis = monSave + '-' + yeaSave;
-    print(date_regis);
-    final data_product_eq = double.parse(productweight.text) * 1.5;
+    final data_product_eq = double.parse(productweight.text) *
+        double.parse(factors[0]['factor_value']);
     print(data_product_eq);
-    final data_distance_eq = double.parse(product_distance.text) * 2;
-    print(data_distance_eq);
 
-    final total = data_product_eq + data_distance_eq;
-    print(total);
-    print(product_id);
     final uri = Uri.parse("http://${ipcon}/greenhousegas/insert_product.php");
     var request = http.MultipartRequest('POST', uri);
     // request.fields['product_id'] = widget.list[widget.i]['product_id'];
@@ -82,7 +78,7 @@ class _addproductState extends State<addproduct> {
     request.fields['product_eq'] = data_product_eq.toString();
     request.fields['product_distance'] = product_distance.text;
     // request.fields['product_distance_eq'] = data_distance_eq.toString();
-    request.fields['product_total_eq'] = total.toString();
+    // request.fields['product_total_eq'] = total.toString();
     request.fields['product_car_codeid'] = car_codeid.text;
     request.fields['product_month'] = monSave;
     request.fields['product_year'] = yeaSave;
@@ -107,6 +103,18 @@ class _addproductState extends State<addproduct> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=ProductEq"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getsubname() async {

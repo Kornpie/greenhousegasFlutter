@@ -24,18 +24,18 @@ class _addwater3State extends State<addwater3> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List mon = [];
   List yea = [];
+  List factors = [];
   String water_id = null;
   String monSave = null;
   String yeaSave = null;
-  TextEditingController watername =
-      TextEditingController(text: "การใช้น้ำRO");
+  TextEditingController watername = TextEditingController(text: "การใช้น้ำRO");
   TextEditingController watercubic = TextEditingController();
 
   @override
   // void initState() {
   void initState() {
     getmonth();
-
+    geteq();
     super.initState();
   }
 
@@ -56,7 +56,8 @@ class _addwater3State extends State<addwater3> {
   Future uploaddata() async {
     // final date_regis = monSave + '-' + yeaSave;
     // print(date_regis);
-    final data_water = double.parse(watercubic.text) * 1.5;
+    final data_water = double.parse(watercubic.text) *
+        double.parse(factors[0]['factor_value']);
     print(data_water);
 
     final uri = Uri.parse("http://${ipcon}/greenhousegas/insert_water.php");
@@ -88,6 +89,18 @@ class _addwater3State extends State<addwater3> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=tapwater-RO"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getmonth() async {

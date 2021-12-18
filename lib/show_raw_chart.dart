@@ -102,7 +102,7 @@ class _ChartRawState extends State<ChartRaw> {
                       ios: IOSSafariOptions(barCollapsingEnabled: true)));
             },
             child: Text(
-              "ไปยังหน้าแสดงกราฟของวัตถุดิบ",
+              "ไปยังหน้าแสดงกราฟ",
               style: GoogleFonts.prompt(fontSize: 22, color: Colors.white),
             )),
       ),

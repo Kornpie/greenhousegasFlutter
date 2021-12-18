@@ -24,6 +24,7 @@ class _addwaterState extends State<addwater> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List mon = [];
   List yea = [];
+  List factors = [];
   String water_id = null;
   String monSave = null;
   String yeaSave = null;
@@ -35,28 +36,13 @@ class _addwaterState extends State<addwater> {
   // void initState() {
   void initState() {
     getmonth();
-
+    geteq();
     super.initState();
   }
 
-  //   jojo();
-  //   super.initState();
-  // }
-
-  // List a = List.empty();
-  // String id = "";
-  // void jojo() async {
-
-  //   watercubic = TextEditingController(text: "ข้อมูลสินค้า");
-  //   // watercubic = TextEditingController(text: widget.list[widget.i]['water_name']);
-  //   // watercubiceq =
-  //   //     TextEditingController(text: widget.list[widget.i]['water_weight']);
-  // }
-
   Future uploaddata() async {
-    // final date_regis = monSave + '-' + yeaSave;
-    // print(date_regis);
-    final data_water = double.parse(watercubic.text) * 1.5;
+    final data_water = double.parse(watercubic.text) *
+        double.parse(factors[0]['factor_value']);
     print(data_water);
 
     final uri = Uri.parse("http://${ipcon}/greenhousegas/insert_water.php");
@@ -88,6 +74,18 @@ class _addwaterState extends State<addwater> {
           ));
       print(response.statusCode);
     }
+  }
+
+  Future geteq() async {
+    final response = await http.get(Uri.parse(
+        "http://${ipcon}/greenhousegas/getfactors.php?nameFac=tapwater-1"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getmonth() async {

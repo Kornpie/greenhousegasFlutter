@@ -20,27 +20,16 @@ String _valueToValidate = '';
 class _formaddNGState extends State<formaddNG> {
   List mon = [];
   List yea = [];
+  List factors = [];
   String monSave = null;
   String yeaSave = null;
   TextEditingController eg_name = TextEditingController(text: "การใช้ NG");
   TextEditingController eg_unit = TextEditingController();
   Future uploaddata() async {
-    // final date_regis = monSave + '-' + yeaSave;
-    // // print(date_regis);
-    // final data_waste_eq = double.parse(waste_weight.text) * 1.5;
-    // // print(data_waste_eq);
-    final eg_unit_eq = double.parse(eg_unit.text) * 2;
+    final eg_unit_eq =
+        double.parse(eg_unit.text) * double.parse(factors[0]['factor_value']);
     print(eg_unit_eq);
 
-    print(monSave);
-    print(yeaSave);
-    print(eg_name.text);
-    // print(data_waste_eq.toString());
-    print(eg_unit.text);
-
-    // final total = data_waste_eq + data_distance_eq;
-    // print(total);
-    // print(waste_id);
     final uri = Uri.parse("http://${ipcon}/greenhousegas/add_use_eg.php");
     var request = http.MultipartRequest('POST', uri);
 
@@ -75,8 +64,20 @@ class _formaddNGState extends State<formaddNG> {
   @override
   void initState() {
     getmonth();
-
+    geteq();
     super.initState();
+  }
+
+  Future geteq() async {
+    final response = await http.get(
+        Uri.parse("http://${ipcon}/greenhousegas/getfactors.php?nameFac=NgEq"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        factors = jsonData;
+      });
+    }
+    print(factors);
   }
 
   Future getmonth() async {
