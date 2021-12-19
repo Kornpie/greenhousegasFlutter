@@ -173,7 +173,7 @@ class _addwater2State extends State<addwater2> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 750,
+                    height: 350,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(

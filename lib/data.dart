@@ -273,15 +273,16 @@ class _AddDataState extends State<AddData> {
                               );
                             },
                             child: Container(
-                              height: 50,
+                              height: 80,
                               decoration: BoxDecoration(
-                                  color: Colors.white, // background
+                                  color: Colors.orangeAccent, // background
                                   borderRadius: BorderRadius.circular(5)),
                               child: const Center(
                                   child: Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 0, right: 90, top: 0, bottom: 0),
-                                child: Text('การประเมินคาร์บอนฟุตพริ้นท์',
+                                    left: 0, right: 0, top: 0, bottom: 0),
+                                child: Text(
+                                    'การประเมินคาร์บอนฟุตพริ้นท์\nCarbon Footprint Assessment',
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.black)),
                               )),

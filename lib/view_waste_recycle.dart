@@ -55,7 +55,7 @@ class _viewRecycleState extends State<viewRecycle> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    selectedValue = widget.list[widget.i]['waste_company_destination'];
+    selectedValue = widget.list[widget.i]['company_id'];
     caValue = widget.list[widget.i]['waste_cars'];
     waste_name =
         TextEditingController(text: widget.list[widget.i]['waste_name']);

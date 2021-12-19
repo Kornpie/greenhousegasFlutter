@@ -32,7 +32,7 @@ class _viewpollutionwaterState extends State<viewpollutionwater> {
   String mon_Start = null;
   String mon_End = null;
   String yearSave = null;
-  
+
   TextEditingController watercubic = TextEditingController();
 
   @override
@@ -149,7 +149,7 @@ class _viewpollutionwaterState extends State<viewpollutionwater> {
                     height: 60,
                   ),
                   Container(
-                    child: Text("แสดงข้อมูลน้ำประปา",
+                    child: Text("แสดงข้อมูลมลพิษน้ำA",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -164,7 +164,7 @@ class _viewpollutionwaterState extends State<viewpollutionwater> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 600,
+                    height: 520,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(

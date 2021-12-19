@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:greenhousegas/edit_1mon_lpg.dart';
+import 'package:greenhousegas/edit_raw_materials.dart';
 import 'package:greenhousegas/staple.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -8,34 +10,33 @@ import 'package:art_sweetalert/art_sweetalert.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
-import 'edit_raw_materials.dart';
 
-class editRawMonth extends StatefulWidget {
+class editLPGMonth extends StatefulWidget {
   final list;
   final i;
   final x;
-  editRawMonth({this.list, this.i, this.x});
+  editLPGMonth({this.list, this.i, this.x});
   @override
-  _editRawMonthState createState() => _editRawMonthState();
+  _editLPGMonthState createState() => _editLPGMonthState();
 }
 
-class _editRawMonthState extends State<editRawMonth> {
+class _editLPGMonthState extends State<editLPGMonth> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String rawdate = null;
-  String raw_month = null;
-  String raw_yaer = null;
-  String rawid = null;
-  String raw_car_codeid = null;
-  String raw_cars = null;
+  String lpg_day = null;
+  String lpg_month = null;
+  String lpg_year = null;
+  String lpg_id = null;
+  String lpg_car_codeid = null;
+  String lpg_cars = null;
   // String comid = null;
   List mon = [];
   List yea = [];
   String yeaSave = null;
   String monSave = null;
-  TextEditingController raw_distance = TextEditingController();
+  TextEditingController lpg_distance = TextEditingController();
   TextEditingController comid = TextEditingController();
-  TextEditingController rawname = TextEditingController();
-  TextEditingController rawweight = TextEditingController();
+  TextEditingController lpg_name = TextEditingController();
+  TextEditingController lpg_weight = TextEditingController();
 
   @override
   void initState() {
@@ -49,17 +50,17 @@ class _editRawMonthState extends State<editRawMonth> {
   String id = "";
   void jojo() async {
     comid = TextEditingController(text: widget.list[widget.i]['company_id']);
-    // rawid = widget.list[widget.i]['raw_id'];
-    // rawdate = widget.list[widget.i]['raw_date'];
-    // raw_month = widget.list[widget.i]['raw_month'];
-    // raw_yaer = widget.list[widget.i]['raw_yaer'];
-    // raw_cars = widget.list[widget.i]['raw_cars'];
-    // raw_car_codeid = widget.list[widget.i]['raw_car_codeid'];
-    // raw_distance =
-    //     TextEditingController(text: widget.list[widget.i]['raw_distance']);
-    // rawname = TextEditingController(text: widget.list[widget.i]['raw_name']);
-    // rawweight =
-    //     TextEditingController(text: widget.list[widget.i]['raw_weight']);
+    // lpg_id = widget.list[widget.i]['lpg_id'];
+    // lpg_day = widget.list[widget.i]['lpg_date'];
+    // lpg_month = widget.list[widget.i]['lpg_month'];
+    // lpg_yaer = widget.list[widget.i]['lpg_yaer'];
+    // lpg_cars = widget.list[widget.i]['lpg_cars'];
+    // lpg_car_codeid = widget.list[widget.i]['lpg_car_codeid'];
+    // lpg_distance =
+    //     TextEditingController(text: widget.list[widget.i]['lpg_distance']);
+    // lpgname = TextEditingController(text: widget.list[widget.i]['lpg_name']);
+    // lpgweight =
+    //     TextEditingController(text: widget.list[widget.i]['lpg_weight']);
   }
 
   Future getmonth() async {
@@ -81,7 +82,7 @@ class _editRawMonthState extends State<editRawMonth> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => editmeterials(monSave, yeaSave, idcom)));
+            builder: (context) => editLPG(monSave, yeaSave, idcom)));
   }
 
   @override

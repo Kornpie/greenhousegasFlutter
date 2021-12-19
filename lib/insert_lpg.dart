@@ -44,8 +44,8 @@ class _formaddLPGState extends State<formaddLPG> {
   void initState() {
     getsubname();
     getcar();
-    // print(widget.list[widget.i]);
-    // jojo();
+    print(widget.list[widget.i]);
+    jojo();
     getmonth();
     geteq();
     super.initState();
@@ -53,6 +53,15 @@ class _formaddLPGState extends State<formaddLPG> {
 
   List a = List.empty();
   String id = "";
+  void jojo() async {
+    selectedValue = widget.list[widget.i]['company_id'];
+    caValue = widget.list[widget.i]['	lpg_cars'];
+    lpg_id = widget.list[widget.i]['lpg_id'];
+
+    // rawname = TextEditingController(text: widget.list[widget.i]['raw_name']);
+    // rawweight =
+    //     TextEditingController(text: widget.list[widget.i]['raw_weight']);
+  }
 
   Future uploaddata() async {
     final data_lpg_eq = double.parse(lpg_weight.text) *
@@ -252,7 +261,7 @@ class _formaddLPGState extends State<formaddLPG> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 800,
+                    height: 700,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
@@ -313,12 +322,12 @@ class _formaddLPGState extends State<formaddLPG> {
                                     ),
                                     value: selectedValue,
                                     items: companyname2,
-                                    onChanged: (v) {
-                                      setState(() {
-                                        selectedValue = v.toString();
-                                      });
-                                      print(selectedValue);
-                                    },
+                                    // onChanged: (v) {
+                                    //   setState(() {
+                                    //     selectedValue = v.toString();
+                                    //   });
+                                    //   print(selectedValue);
+                                    // },
                                   ),
                                 ),
                                 Padding(

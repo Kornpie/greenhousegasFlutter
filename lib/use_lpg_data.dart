@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:greenhousegas/show_lpg_chart.dart';
+import 'package:greenhousegas/show_raw_chart.dart';
 import 'package:greenhousegas/staple.dart';
-import 'package:greenhousegas/view_table_use_elec.dart';
+import 'package:greenhousegas/view_table_raw_materials.dart';
 import 'package:greenhousegas/view_table_use_lpg.dart';
-import 'package:greenhousegas/view_use_energy.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'ipcon.dart';
@@ -12,7 +12,6 @@ import 'package:art_sweetalert/art_sweetalert.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
-import 'view_table_raw_materials.dart';
 
 class UseLPGData extends StatefulWidget {
   final list;
@@ -26,18 +25,42 @@ class UseLPGData extends StatefulWidget {
 
 class _UseLPGDataState extends State<UseLPGData> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  List company = [];
+  List companyname = [];
+  List car = [];
+  List carname = [];
   List mon = [];
   List yea = [];
-
+  String selectedValue = null;
   String caValue = null;
   // TextEditingController mon_Start = TextEditingController();
   //   TextEditingController mon_Start = TextEditingController();
   String mon_Start = null;
   String mon_End = null;
   String yaerSave = null;
+  TextEditingController lpg_name = TextEditingController();
+  TextEditingController lpg_weight = TextEditingController();
 
   @override
+  void initState() {
+    getsubname();
+    getcar();
+    // print(widget.list[widget.i]);
+    jojo();
+    getmonth();
+    super.initState();
+  }
+
+  List a = List.empty();
+  String id = "";
+  void jojo() async {
+    selectedValue = widget.list[widget.i]['company_id'];
+    caValue = widget.list[widget.i]['lpg_cars'];
+    lpg_name = TextEditingController(text: widget.list[widget.i]['lpg_name']);
+    lpg_weight =
+        TextEditingController(text: widget.list[widget.i]['lpg_weight']);
+  }
+
   Future uploaddata() async {
     final sum = int.parse(mon_End) - int.parse(mon_Start);
     print(sum);
@@ -47,8 +70,8 @@ class _UseLPGDataState extends State<UseLPGData> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  UseLPGDataTable(mon_Start, mon_End, yaerSave)));
+              builder: (context) => UseLPGDataTable(
+                  mon_Start, mon_End, yaerSave, selectedValue)));
     } else {
       ArtSweetAlert.show(
           context: context,
@@ -57,48 +80,26 @@ class _UseLPGDataState extends State<UseLPGData> {
             title: "เลือกมากกว่า 3 เดือนขึ้นไป",
           ));
     }
-    // final uri =
-
-    //     Uri.parse("http://${ipcon}/greenhousegas/insert_raw_materials.php");
-    // var request = http.MultipartRequest('POST', uri);
-    // request.fields['company_id'] = selectedValue;
-    // request.fields['car_id'] = caValue;
-    // request.fields['rawname'] = rawname.text;
-    // request.fields['rawweight'] = rawweight.text;
-
-    // var response = await request.send();
-    // if (response.statusCode == 200) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => staple()));
-    //   ArtSweetAlert.show(
-    //       context: context,
-    //       artDialogArgs: ArtDialogArgs(
-    //         type: ArtSweetAlertType.,
-    //         title: "เพิ่มข้อมูลสำเร็จ",
-    //       ));
-    // } else {
-    //   ArtSweetAlert.show(
-    //       context: context,
-    //       artDialogArgs: ArtDialogArgs(
-    //         type: ArtSweetAlertType.danger,
-    //         title: "เพิ่มข้อมูลไม่สำเร็จ",
-    //       ));
-    //   print(response.statusCode);
-    // }
   }
 
   Future gochart() async {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => lpgChartRaw(mon_Start, mon_End, yaerSave)));
+            builder: (context) =>
+                lpgChart(mon_Start, mon_End, yaerSave, selectedValue)));
   }
 
-  @override
-  void initState() {
-    getmonth();
-
-    super.initState();
+  Future getsubname() async {
+    final response = await http
+        .get(Uri.parse("http://${ipcon}/greenhousegas/get_company.php"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        companyname = jsonData;
+      });
+    }
+    // print(subjectname);
   }
 
   Future getmonth() async {
@@ -113,14 +114,57 @@ class _UseLPGDataState extends State<UseLPGData> {
     // print(subjectname);
   }
 
+  Future getcar() async {
+    final response =
+        await http.get(Uri.parse("http://${ipcon}/greenhousegas/get_car.php"));
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        carname = jsonData;
+      });
+    }
+    // print(subjectname);
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<String>> mon2 = mon.map((e) {
+    List<DropdownMenuItem<String>> companyname2 = companyname.map((e) {
+      return DropdownMenuItem<String>(
+        value: e['company_id'].toString(),
+        child: Text(e['company_name'].toString()),
+      );
+    }).toList();
+    List<DropdownMenuItem<String>> carname2 = carname.map((e) {
+      return DropdownMenuItem<String>(
+        value: e['car_id'].toString(),
+        child: Text(e['car_name'].toString()),
+      );
+    }).toList();
+    List<DropdownMenuItem<String>> monthdata = mon.map((e) {
       return DropdownMenuItem<String>(
         value: e['mon_id'].toString(),
         child: Text(e['mon_name'].toString()),
       );
     }).toList();
+    // List<DropdownMenuItem<String>> mon = [
+    //   '1',
+    //   '2',
+    //   '3',
+    //   '4',
+    //   '5',
+    //   '6',
+    //   '7',
+    //   '8',
+    //   '9',
+    //   '10',
+    //   '11',
+    //   '12',
+    // ].map((String value) {
+    //   return DropdownMenuItem<String>(
+    //     value: value.toString(),
+    //     child: Text(value.toString()),
+    //   );
+    // }).toList();
 
     List<DropdownMenuItem<String>> yea = [
       '2021',
@@ -156,7 +200,7 @@ class _UseLPGDataState extends State<UseLPGData> {
                     height: 60,
                   ),
                   Container(
-                    child: Text("ข้อมูลการใช้พลังงาน",
+                    child: Text("ดูข้อการใช้ LPG ตามเดือน",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -171,7 +215,7 @@ class _UseLPGDataState extends State<UseLPGData> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 520,
+                    height: 650,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
@@ -187,14 +231,44 @@ class _UseLPGDataState extends State<UseLPGData> {
                                 SizedBox(
                                   height: 20,
                                 ),
-
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 0, top: 15, bottom: 5),
-                                  child: Text("การใช้ LPG",
+                                      right: 140, top: 10, bottom: 5),
+                                  child: Text("ชื่อบริษัทต้นทาง",
                                       style: TextStyle(
-                                          fontSize: 20, color: Colors.black)),
+                                          fontSize: 16,
+                                          color: Colors.grey[700])),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40),
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: const InputDecoration(),
+                                    isExpanded: true,
+                                    hint: Center(
+                                      child: Text(
+                                        "-----เลือกบริษัท-----",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                    value: selectedValue,
+                                    items: companyname2,
+                                    // onChanged: (v) {
+                                    //   setState(() {
+                                    //     selectedValue = v.toString();
+                                    //   });
+                                    //   print(selectedValue);
+                                    // },
+                                  ),
+                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       right: 0, top: 15, bottom: 5),
+                                //   child: Text("ชื่อวัตถุดิบ " + 'PET CHIP',
+                                //       style: TextStyle(
+                                //           fontSize: 16,
+                                //           color: Colors.grey[700])),
+                                // ),
                                 // Padding(
                                 //   padding: const EdgeInsets.only(
                                 //     left: 40,
@@ -205,7 +279,7 @@ class _UseLPGDataState extends State<UseLPGData> {
                                 //     child: TextFormField(
                                 //       validator: RequiredValidator(
                                 //           errorText: 'กรุณากรอกให้ถูกต้อง'),
-                                //       controller: rawname,
+                                //       controller: lpg_name,
                                 //       decoration: InputDecoration(
                                 //         contentPadding: EdgeInsets.all(10),
                                 //         filled: true,
@@ -237,7 +311,7 @@ class _UseLPGDataState extends State<UseLPGData> {
                                       ),
                                     ),
                                     value: mon_Start,
-                                    items: mon2,
+                                    items: monthdata,
                                     onChanged: (e) {
                                       setState(() {
                                         mon_Start = e.toString();
@@ -269,7 +343,7 @@ class _UseLPGDataState extends State<UseLPGData> {
                                       ),
                                     ),
                                     value: mon_End,
-                                    items: mon2,
+                                    items: monthdata,
                                     onChanged: (e) {
                                       setState(() {
                                         mon_End = e.toString();
@@ -308,34 +382,6 @@ class _UseLPGDataState extends State<UseLPGData> {
                                     },
                                   ),
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(
-                                //       right: 190, top: 15, bottom: 5),
-                                //   child: Text("นํ้าหนัก",
-                                //       style: TextStyle(
-                                //           fontSize: 16,
-                                //           color: Colors.grey[700])),
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(
-                                //     left: 40,
-                                //     right: 40,
-                                //     bottom: 10,
-                                //   ),
-                                //   child: Container(
-                                //     height: 20,
-                                //     child: TextFormField(
-                                //       validator: RequiredValidator(
-                                //           errorText: 'กรุณากรอกให้ถูกต้อง'),
-                                //       controller: rawweight,
-                                //       decoration: InputDecoration(
-                                //         contentPadding: EdgeInsets.all(10),
-                                //         filled: true,
-                                //         fillColor: Colors.white,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -363,6 +409,12 @@ class _UseLPGDataState extends State<UseLPGData> {
                                 GestureDetector(
                                   onTap: () {
                                     gochart();
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(builder: (context) {
+                                    //     return lpgCharts();
+                                    //   }),
+                                    // );
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -378,6 +430,38 @@ class _UseLPGDataState extends State<UseLPGData> {
                                             fontSize: 15, color: Colors.white)),
                                   ),
                                 ),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: GestureDetector(
+                                //     onTap: () {
+                                //       Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(builder: (context) {
+                                //           return lpgCharts();
+                                //         }),
+                                //       );
+                                //     },
+                                //     child: Container(
+                                //       height: 50,
+                                //       decoration: BoxDecoration(
+                                //           color: Colors.white, // background
+                                //           borderRadius:
+                                //               BorderRadius.circular(5)),
+                                //       child: const Center(
+                                //           child: Padding(
+                                //         padding: const EdgeInsets.only(
+                                //             left: 0,
+                                //             right: 210,
+                                //             top: 0,
+                                //             bottom: 0),
+                                //         child: Text('วิเคราะห์ข้อมูล',
+                                //             style: TextStyle(
+                                //                 fontSize: 20,
+                                //                 color: Colors.black)),
+                                //       )),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             )),
                       ],
@@ -385,42 +469,6 @@ class _UseLPGDataState extends State<UseLPGData> {
                   )
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 225, right: 0, bottom: 0),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return viewenergy();
-                        }),
-                      );
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 155,
-                      height: 43,
-                      decoration: BoxDecoration(
-                          color: Colors.yellow,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("ข้อมูลอื่น",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
             ),
           ],
         ),

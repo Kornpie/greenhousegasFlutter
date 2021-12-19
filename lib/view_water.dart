@@ -144,7 +144,7 @@ class _viewwaterState extends State<viewwater> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 600,
+                    height: 520,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(

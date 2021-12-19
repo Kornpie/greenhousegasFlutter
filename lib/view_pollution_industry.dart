@@ -32,7 +32,7 @@ class _viewpollutionindustryState extends State<viewpollutionindustry> {
   String mon_Start = null;
   String mon_End = null;
   String yearSave = null;
-  
+
   TextEditingController watercubic = TextEditingController();
 
   @override
@@ -164,7 +164,7 @@ class _viewpollutionindustryState extends State<viewpollutionindustry> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 600,
+                    height: 520,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(

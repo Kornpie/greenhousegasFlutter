@@ -54,7 +54,7 @@ class _addWasteState extends State<addWaste> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    selectedValue = widget.list[widget.i]['waste_company_destination'];
+    selectedValue = widget.list[widget.i]['company_id'];
     caValue = widget.list[widget.i]['waste_cars'];
     waste_id = widget.list[widget.i]['waste_id'];
     waste_ename = TextEditingController(text: "WASTE PET FILM");
@@ -267,7 +267,7 @@ class _addWasteState extends State<addWaste> {
                     height: 60,
                   ),
                   Container(
-                    child: Text("ข้อมูลของเสียรีไซเคิล",
+                    child: Text("เพิ่มข้อมูลของเสียรีไซเคิล",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

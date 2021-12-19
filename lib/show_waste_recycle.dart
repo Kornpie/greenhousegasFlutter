@@ -26,6 +26,12 @@ class showwasterecycleState extends State<show_waste_recycle> {
     return json.decode(response.body);
   }
 
+  Future<List> getcom() async {
+    final response = await http
+        .get(Uri.parse("http://$ipcon/greenhousegas/get_company.php"));
+    return json.decode(response.body);
+  }
+
   String username = "";
   String utype = "";
 
@@ -88,39 +94,10 @@ class showwasterecycleState extends State<show_waste_recycle> {
                   SizedBox(
                     height: 20,
                   ),
-                  utype == "3"
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return addrecycle();
-                              }),
-                            );
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            // width: MediaQuery.of(context).size.width,
-                            height: 40,
-                            width: 180,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[300], // background
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Text("เพิ่มข้อมูล",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue[500])),
-                          ),
-                        )
-                      : Wrap(),
-                  SizedBox(
-                    height: 20,
-                  ),
                   Container(
                     height: 800,
                     child: new FutureBuilder<List>(
-                      future: getdata(),
+                      future: getcom(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) print(snapshot.error);
 
@@ -217,13 +194,15 @@ class _ItemlistState extends State<Itemlist> {
             child: Card(
               child: ListTile(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => addWaste(
-                                list: widget.list,
-                                i: i,
-                              )));
+                  utype == "3"
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => addWaste(
+                                    list: widget.list,
+                                    i: i,
+                                  )))
+                      : null;
                 },
                 title: Text('WASTE PET FILM ' + widget.list[i]['company_name'],
                     style: TextStyle(fontSize: 18, color: Colors.black)),
@@ -242,22 +221,31 @@ class _ItemlistState extends State<Itemlist> {
                                     )));
                       },
                     ),
-                    IconButton(
-                      color: Colors.orange,
-                      icon: Icon(
-                        Icons.edit,
-                        color: Colors.orange,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => editWasteMonth(
-                                      list: widget.list,
-                                      i: i,
-                                    )));
-                      },
-                    ),
+                    utype == "2"
+                        ? IconButton(
+                            color: Colors.orange,
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.orange,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => editWasteMonth(
+                                            list: widget.list,
+                                            i: i,
+                                          )));
+                            },
+                          )
+                        : IconButton(
+                            color: Colors.orange,
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.orange,
+                            ),
+                            onPressed: () {},
+                          ),
                   ],
                 ),
               ),

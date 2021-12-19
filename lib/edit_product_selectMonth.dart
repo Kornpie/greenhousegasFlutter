@@ -50,8 +50,7 @@ class _editProductMonthState extends State<editProductMonth> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    comid = TextEditingController(
-        text: widget.list[widget.i]['product_company_origin']);
+    comid = TextEditingController(text: widget.list[widget.i]['company_id']);
     // product_id = widget.list[widget.i]['raw_id'];
     // product_day = widget.list[widget.i]['raw_date'];
     // product_month = widget.list[widget.i]['product_month'];

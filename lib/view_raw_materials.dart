@@ -53,7 +53,7 @@ class _viewmeterialsState extends State<viewmeterials> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    selectedValue = widget.list[widget.i]['raw_company_origin'];
+    selectedValue = widget.list[widget.i]['company_id'];
     caValue = widget.list[widget.i]['raw_cars'];
     rawname = TextEditingController(text: widget.list[widget.i]['raw_name']);
     rawweight =
@@ -182,7 +182,6 @@ class _viewmeterialsState extends State<viewmeterials> {
     }).toList();
 
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

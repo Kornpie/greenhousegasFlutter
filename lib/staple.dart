@@ -28,6 +28,12 @@ class _stapleState extends State<staple> {
     return json.decode(response.body);
   }
 
+  Future<List> getcom() async {
+    final response = await http
+        .get(Uri.parse("http://$ipcon/greenhousegas/get_company.php"));
+    return json.decode(response.body);
+  }
+
   String username = "";
   String utype = "";
 
@@ -139,7 +145,7 @@ class _stapleState extends State<staple> {
                     height: 450,
                     width: 390,
                     child: new FutureBuilder<List>(
-                      future: getdata(),
+                      future: getcom(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) print(snapshot.error);
 
@@ -268,13 +274,15 @@ class _ItemlistState extends State<Itemlist> {
               child: Card(
                 child: ListTile(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => addmeterials(
-                                  list: widget.list,
-                                  i: i,
-                                )));
+                    utype == "3"
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => addmeterials(
+                                      list: widget.list,
+                                      i: i,
+                                    )))
+                        : null;
                   },
                   title: Text('PET CHIP ' + widget.list[i]['company_name'],
                       style: GoogleFonts.prompt(
@@ -310,23 +318,12 @@ class _ItemlistState extends State<Itemlist> {
                             )
                           : IconButton(
                               color: Colors.orange,
-                              icon: Icon(Icons.edit),
+                              icon: Icon(
+                                Icons.edit,
+                                color: Colors.orange,
+                              ),
                               onPressed: () {},
                             ),
-                      // utype == "2"
-                      //     ? IconButton(
-                      //         color: Colors.red,
-                      //         icon: Icon(Icons.delete),
-                      //         onPressed: () {
-                      //           confirm(context, widget.list[i]['raw_id'],
-                      //               widget.list[i]['raw_name']);
-                      //         },
-                      //       )
-                      //     : IconButton(
-                      //         color: Colors.red,
-                      //         icon: Icon(Icons.delete),
-                      //         onPressed: () {},
-                      //       ),
                     ],
                   ),
                 ),

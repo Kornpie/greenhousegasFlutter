@@ -557,7 +557,7 @@ class showdispalyState extends State<showdispaly> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 4),
                                   child: Container(
-                                    height: 28,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.blueGrey, // background
                                         borderRadius: BorderRadius.circular(8)),
@@ -592,7 +592,7 @@ class showdispalyState extends State<showdispaly> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 4),
                                   child: Container(
-                                    height: 28,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.blueGrey, // background
                                         borderRadius: BorderRadius.circular(8)),
@@ -627,7 +627,7 @@ class showdispalyState extends State<showdispaly> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 4),
                                   child: Container(
-                                    height: 28,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.blueGrey, // background
                                         borderRadius: BorderRadius.circular(8)),
@@ -656,7 +656,7 @@ class showdispalyState extends State<showdispaly> {
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return Container(
-                                      height: 30,
+                                      height: 60,
                                       width: 260,
                                       decoration: BoxDecoration(
                                         color: Colors.green[600], // background
@@ -670,7 +670,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้ไฟฟ้า " +
+                                              "การใช้ไฟฟ้า\n" +
                                                   data_eg_elecTable[0]
                                                       ['elec_data2'],
                                               style: TextStyle(
@@ -695,7 +695,7 @@ class showdispalyState extends State<showdispaly> {
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return Container(
-                                      height: 30,
+                                      height: 60,
                                       width: 260,
                                       decoration: BoxDecoration(
                                         color: Colors.green[600], // background
@@ -709,7 +709,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้LPG " +
+                                              "      การใช้LPG\n" +
                                                   data_eg_lpgTable[0]
                                                       ['lpg_data2'],
                                               style: TextStyle(
@@ -734,7 +734,7 @@ class showdispalyState extends State<showdispaly> {
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return Container(
-                                      height: 30,
+                                      height: 60,
                                       width: 260,
                                       decoration: BoxDecoration(
                                         color: Colors.green[600], // background
@@ -748,7 +748,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้NG " +
+                                              "การใช้NG\n" +
                                                   data_eg_NGTable[0]
                                                       ['ng_data2'],
                                               style: TextStyle(
@@ -814,7 +814,7 @@ class showdispalyState extends State<showdispaly> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 4),
                                   child: Container(
-                                    height: 28,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.blueGrey, // background
                                         borderRadius: BorderRadius.circular(8)),
@@ -849,7 +849,7 @@ class showdispalyState extends State<showdispaly> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 4),
                                   child: Container(
-                                    height: 28,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.blueGrey, // background
                                         borderRadius: BorderRadius.circular(8)),
@@ -884,7 +884,7 @@ class showdispalyState extends State<showdispaly> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 4),
                                   child: Container(
-                                    height: 28,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                         color: Colors.blueGrey, // background
                                         borderRadius: BorderRadius.circular(8)),
@@ -913,7 +913,7 @@ class showdispalyState extends State<showdispaly> {
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return Container(
-                                      height: 30,
+                                      height: 60,
                                       width: 260,
                                       decoration: BoxDecoration(
                                         color: Colors.green[600], // background
@@ -927,7 +927,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้น้ำประปานิคมฯ " +
+                                              "การใช้น้ำประปานิคมฯ\n" +
                                                   datawaterTable[0]
                                                       ['water_data2'],
                                               style: TextStyle(
@@ -952,7 +952,7 @@ class showdispalyState extends State<showdispaly> {
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return Container(
-                                      height: 30,
+                                      height: 60,
                                       width: 260,
                                       decoration: BoxDecoration(
                                         color: Colors.green[600], // background
@@ -966,7 +966,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้น้ำประปาอ่อน " +
+                                              "การใช้น้ำประปาอ่อน\n" +
                                                   datawater2Table[0]
                                                       ['water2_data2'],
                                               style: TextStyle(
@@ -991,7 +991,7 @@ class showdispalyState extends State<showdispaly> {
                                     AsyncSnapshot snapshot) {
                                   if (snapshot.hasData) {
                                     return Container(
-                                      height: 30,
+                                      height: 60,
                                       width: 260,
                                       decoration: BoxDecoration(
                                         color: Colors.green[600], // background
@@ -1005,7 +1005,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้น้ำRO " +
+                                              "การใช้น้ำRO\n" +
                                                   datawater3Table[0]
                                                       ['water3_data2'],
                                               style: TextStyle(

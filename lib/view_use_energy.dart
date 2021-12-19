@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greenhousegas/data.dart';
+import 'package:greenhousegas/show_com_lpg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'typeuser_regis.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'login.dart';
@@ -23,6 +25,26 @@ class viewenergy extends StatefulWidget {
 }
 
 class _viewenergyState extends State<viewenergy> {
+  String username = "";
+  String utype = "";
+
+  Future getEmail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      username = preferences.getString('user_fullname');
+      utype = preferences.getString('user_type');
+    });
+    print('ชื่อ' + username);
+    print('ประเภท' + utype);
+  }
+
+  @override
+  void initState() {
+    //initsete คือทำงานตอนเข้าหน้านั้นๆ ในหน้านี้เราใช้เรีกหาข้อมูลของ user
+    getEmail();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,37 +68,13 @@ class _viewenergyState extends State<viewenergy> {
                     child: Center(
                       child: Text("ข้อมูลการใช้พลังงานประจำเดือน",
                           style: TextStyle(
-                              fontSize: 28,
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: Colors.white)),
                     ),
                   ),
                   SizedBox(
                     height: 20,
-                  ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //       return addpollution();
-                    //     }),
-                    //   );
-                    // },
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: MediaQuery.of(context).size.width,
-                      height: 40,
-                      width: 180,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300], // background
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("เพิ่มข้อมูล",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[500])),
-                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -85,12 +83,14 @@ class _viewenergyState extends State<viewenergy> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return formaddelectricity();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return formaddelectricity();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,
@@ -131,7 +131,7 @@ class _viewenergyState extends State<viewenergy> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) {
-                            return formaddLPG();
+                            return showlpgcom();
                           }),
                         );
                       },
@@ -145,14 +145,14 @@ class _viewenergyState extends State<viewenergy> {
                             IconButton(
                               icon: Icon(Icons.remove_red_eye_outlined),
                               iconSize: 35,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return UseLPGData();
-                                  }),
-                                );
-                              },
+                              // onPressed: () {
+                              //   Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(builder: (context) {
+                              //       return UseLPGData();
+                              //     }),
+                              //   );
+                              // },
                             ),
                             const Center(
                                 child: Padding(
@@ -171,12 +171,14 @@ class _viewenergyState extends State<viewenergy> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return formaddNG();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return formaddNG();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,

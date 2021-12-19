@@ -50,8 +50,7 @@ class _editWasteMonthState extends State<editWasteMonth> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    comid = TextEditingController(
-        text: widget.list[widget.i]['waste_company_destination']);
+    comid = TextEditingController(text: widget.list[widget.i]['company_id']);
     // waste_id = widget.list[widget.i]['raw_id'];
     // waste_day = widget.list[widget.i]['raw_date'];
     // waste_month = widget.list[widget.i]['waste_month'];

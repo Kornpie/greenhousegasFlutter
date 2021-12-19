@@ -29,15 +29,13 @@ class _LoginAppState extends State<LoginApp> {
       preferences.setString('user_fullname', data[0]['user_fullname']);
       preferences.setString('user_type', data[0]['user_type']);
       print(data[0]['user_fullname']);
-      if (data[0]['user_type'] == '4') {
-        setState(() {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Home(),
-            ),
-          );
-        });
+      if (data[0]['user_status'] == '0') {
+        ArtSweetAlert.show(
+            context: context,
+            artDialogArgs: ArtDialogArgs(
+              type: ArtSweetAlertType.warning,
+              title: "ไม่สามารถใช้งานบัญชีนี้ได้",
+            ));
       } else {
         setState(() {
           Navigator.push(

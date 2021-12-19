@@ -53,7 +53,7 @@ class _addmeterialsState extends State<addmeterials> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    selectedValue = widget.list[widget.i]['raw_company_origin'];
+    selectedValue = widget.list[widget.i]['company_id'];
     caValue = widget.list[widget.i]['raw_cars'];
     raw_id = widget.list[widget.i]['raw_id'];
     rawname = TextEditingController(text: "PET CHIP");
@@ -275,7 +275,7 @@ class _addmeterialsState extends State<addmeterials> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 850,
+                    height: 800,
                     width: 320,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(

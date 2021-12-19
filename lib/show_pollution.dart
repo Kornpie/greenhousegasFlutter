@@ -6,6 +6,7 @@ import 'package:greenhousegas/insert_industrialpollution_.dart';
 import 'package:greenhousegas/view_pollution_industry.dart';
 import 'package:greenhousegas/view_pollution_waste.dart';
 import 'package:greenhousegas/view_pollution_water.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ipcon.dart';
 import 'dart:convert';
@@ -22,10 +23,24 @@ class showpollution extends StatefulWidget {
 }
 
 class showpollutionState extends State<showpollution> {
-  Future<List> getdata() async {
-    final response =
-        await http.get(Uri.parse("http://$ipcon/greenhousegas/show_water.php"));
-    return json.decode(response.body);
+  String username = "";
+  String utype = "";
+
+  Future getEmail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      username = preferences.getString('user_fullname');
+      utype = preferences.getString('user_type');
+    });
+    print('ชื่อหน้า recyc' + username);
+    print('ประเภท recyc' + utype);
+  }
+
+  @override
+  void initState() {
+    //initsete คือทำงานตอนเข้าหน้านั้นๆ ในหน้านี้เราใช้เรีกหาข้อมูลของ user
+    getEmail();
+    super.initState();
   }
 
   @override
@@ -57,43 +72,18 @@ class showpollutionState extends State<showpollution> {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //       return addpollution();
-                    //     }),
-                    //   );
-                    // },
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: MediaQuery.of(context).size.width,
-                      height: 40,
-                      width: 180,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300], // background
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("เพิ่มข้อมูล",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[500])),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return addwaterr();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return addwaterr();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,
@@ -131,12 +121,14 @@ class showpollutionState extends State<showpollution> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return weatherpollution();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return weatherpollution();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,
@@ -174,12 +166,14 @@ class showpollutionState extends State<showpollution> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return industrialpollution();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return industrialpollution();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,

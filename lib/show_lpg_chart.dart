@@ -27,8 +27,8 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   String mon_Start;
   String mon_End;
-  // Strin;
-  String yearSave;
+  String selectedValue;
+  String yaerSave;
 
   runApp(MaterialApp());
 
@@ -40,38 +40,39 @@ Future main() async {
     ]);
   }
 
-  runApp(MaterialApp(home: lpgChartRaw(mon_Start, mon_End, yearSave)));
+  runApp(
+      MaterialApp(home: lpgChart(mon_Start, mon_End, yaerSave, selectedValue)));
 }
 
-class lpgChartRaw extends StatefulWidget {
+class lpgChart extends StatefulWidget {
   final ChromeSafariBrowser browser = new MyChromeSafariBrowser();
   String mon_Start;
   String mon_End;
-  // Strin;
-  String yearSave;
-  lpgChartRaw(String mon_Start, mon_End, yearSave) {
+  String selectedValue;
+  String yaerSave;
+  lpgChart(String mon_Start, mon_End, yaerSave, selectedValue) {
     this.mon_Start = mon_Start;
     this.mon_End = mon_End;
-    this.yearSave = yearSave;
-
-    print(mon_Start + mon_End + "Chart" + yearSave);
+    this.yaerSave = yaerSave;
+    this.selectedValue = selectedValue;
+    print(mon_Start + mon_End + "Chart" + selectedValue + yaerSave);
   }
 
   @override
-  _lpgChartRawState createState() =>
-      new _lpgChartRawState(mon_Start, mon_End, yearSave);
+  _lpgChartState createState() =>
+      new _lpgChartState(mon_Start, mon_End, selectedValue, yaerSave);
 }
 
-class _lpgChartRawState extends State<lpgChartRaw> {
+class _lpgChartState extends State<lpgChart> {
   String mon_Start;
   String mon_End;
-  // Strin;
-  String yearSave;
-  _lpgChartRawState(String mon_Start, mon_End, yearSave) {
+  String selectedValue;
+  String yaerSave;
+  _lpgChartState(String mon_Start, mon_End, selectedValue, yaerSave) {
     this.mon_Start = mon_Start;
     this.mon_End = mon_End;
-
-    this.yearSave = yearSave;
+    this.selectedValue = selectedValue;
+    this.yaerSave = yaerSave;
   }
 
   @override
@@ -94,7 +95,7 @@ class _lpgChartRawState extends State<lpgChartRaw> {
             onPressed: () async {
               await widget.browser.open(
                   url: Uri.parse(
-                      "http://$ipcon/greenhousegas/Chart/chart_lpg.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yearSave}"),
+                      "http://$ipcon/greenhousegas/Chart/chart_lpg.php?mon_start=${mon_Start}&mon_end=${mon_End}&year=${yaerSave}&comid=${selectedValue}"),
                   options: ChromeSafariBrowserClassOptions(
                       android: AndroidChromeCustomTabsOptions(
                           addDefaultShareMenuItem: false),

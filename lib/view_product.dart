@@ -54,7 +54,7 @@ class _viewproductState extends State<viewproduct> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    selectedValue = widget.list[widget.i]['product_company_origin'];
+    selectedValue = widget.list[widget.i]['company_id'];
     caValue = widget.list[widget.i]['product_cars'];
     productname =
         TextEditingController(text: widget.list[widget.i]['product_name']);

@@ -100,14 +100,12 @@ class _viewWasteTableState extends State<viewWasteTable> {
                   ),
                   Container(
                     child: Text(
-                        "แสดงตารางข้อมูลวัตถุดิบ"
-                        //+
-                        // mon_Start +
-                        // ' ' +
-                        // mon_End +
-                        // ' ' +
-                        // yearSave
-                        ,
+                        "แสดงตารางข้อมูลของเสียรีไซเคิล" +
+                            mon_Start +
+                            '-' +
+                            mon_End +
+                            ' ' +
+                            yearSave,
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

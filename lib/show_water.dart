@@ -6,6 +6,7 @@ import 'package:greenhousegas/insert_water3.dart';
 import 'package:greenhousegas/view_water.dart';
 import 'package:greenhousegas/view_water2.dart';
 import 'package:greenhousegas/view_water3.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'typeuser_regis.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'login.dart';
@@ -17,13 +18,32 @@ import 'constans.dart';
 import 'edit_raw_materials.dart';
 import 'view_raw_materials.dart';
 
-
 class showwater extends StatefulWidget {
   @override
   _showwaterState createState() => _showwaterState();
 }
 
 class _showwaterState extends State<showwater> {
+  String username = "";
+  String utype = "";
+
+  Future getEmail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      username = preferences.getString('user_fullname');
+      utype = preferences.getString('user_type');
+    });
+    print('ชื่อหน้า recyc' + username);
+    print('ประเภท recyc' + utype);
+  }
+
+  @override
+  void initState() {
+    //initsete คือทำงานตอนเข้าหน้านั้นๆ ในหน้านี้เราใช้เรีกหาข้อมูลของ user
+    getEmail();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,30 +75,6 @@ class _showwaterState extends State<showwater> {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //       return addpollution();
-                    //     }),
-                    //   );
-                    // },
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: MediaQuery.of(context).size.width,
-                      height: 40,
-                      width: 180,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300], // background
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text("เพิ่มข้อมูล",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[500])),
-                    ),
-                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -86,12 +82,14 @@ class _showwaterState extends State<showwater> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return addwater();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return addwater();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,
@@ -129,12 +127,14 @@ class _showwaterState extends State<showwater> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return addwater2();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return addwater2();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,
@@ -172,12 +172,14 @@ class _showwaterState extends State<showwater> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return addwater3();
-                          }),
-                        );
+                        utype == "2"
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return addwater3();
+                                }),
+                              )
+                            : null;
                       },
                       child: Container(
                         height: 50,

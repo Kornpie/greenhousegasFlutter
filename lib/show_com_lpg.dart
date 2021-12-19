@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:greenhousegas/data.dart';
-import 'package:greenhousegas/edit_product.dart';
-import 'package:greenhousegas/edit_product_selectMonth.dart';
-import 'package:greenhousegas/insert_product.dart';
-import 'package:greenhousegas/view_product.dart';
+import 'package:greenhousegas/edit_lpg_selectMonth.dart';
+import 'package:greenhousegas/insert_lpg.dart';
+import 'package:greenhousegas/show_carbon_fp.dart';
+import 'package:greenhousegas/use_lpg_data.dart';
+import 'package:greenhousegas/view_use_energy.dart';
 import 'typeuser_regis.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'login.dart';
@@ -16,16 +17,18 @@ import 'edit_raw_materials.dart';
 import 'view_raw_materials.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'add_raw_materials.dart';
+import 'edit_raw_selectMonth.dart';
 
-class showproduct extends StatefulWidget {
+class showlpgcom extends StatefulWidget {
   @override
-  _showproductState createState() => _showproductState();
+  _showlpgcomState createState() => _showlpgcomState();
 }
 
-class _showproductState extends State<showproduct> {
+class _showlpgcomState extends State<showlpgcom> {
   Future<List> getdata() async {
     final response = await http
-        .get(Uri.parse("http://$ipcon/greenhousegas/show_product.php"));
+        .get(Uri.parse("http://$ipcon/greenhousegas/show_lpg_bycom.php"));
     return json.decode(response.body);
   }
 
@@ -86,7 +89,7 @@ class _showproductState extends State<showproduct> {
                     ),
                   ),
                   Container(
-                    child: Text("ข้อมูลสินค้า",
+                    child: Text("ข้อมูลการใช้ LPG",
                         style: GoogleFonts.prompt(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -111,36 +114,38 @@ class _showproductState extends State<showproduct> {
                       },
                     ),
                   ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 225, right: 0, bottom: 0),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return viewenergy();
+                              }),
+                            );
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 155,
+                            height: 43,
+                            decoration: BoxDecoration(
+                                color: Colors.yellow,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Text("ข้อมูลอื่น",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 150, right: 0, top: 0, bottom: 0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return AddData();
-                    }),
-                  );
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  // width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.all(25),
-                  height: 40,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      color: Colors.yellow[500], // background
-                      borderRadius: BorderRadius.circular(30)),
-                  child: Text("ข้อมูลอื่นๆ",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
-                ),
               ),
             ),
           ],
@@ -158,41 +163,6 @@ class Itemlist extends StatefulWidget {
 }
 
 class _ItemlistState extends State<Itemlist> {
-  void deleteData(String product_id) {
-    var url = Uri.parse("http://$ipcon/greenhousegas/delete_raw_materials.php");
-    http.post(url, body: {'id': product_id});
-  }
-
-  void confirm(context, String product_id, product_name) async {
-    ArtDialogResponse response = await ArtSweetAlert.show(
-        barrierDismissible: false,
-        context: context,
-        artDialogArgs: ArtDialogArgs(
-            denyButtonText: "ยกเลิก",
-            title: "คุณแน่ใจว่าต้องการลบ?",
-            text: "วัตถุดิบ : ${product_name}",
-            confirmButtonText: "ยืนยัน",
-            type: ArtSweetAlertType.warning));
-
-    if (response == null) {
-      return;
-    }
-    if (response.isTapConfirmButton) {
-      setState(() {
-        deleteData(product_id);
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => showproduct()));
-        ArtSweetAlert.show(
-            context: context,
-            artDialogArgs: ArtDialogArgs(
-              type: ArtSweetAlertType.success,
-              title: "ลบข้อมูลเรียบร้อย",
-            ));
-      });
-    }
-  }
-
   String username = "";
   String utype = "";
 
@@ -226,17 +196,17 @@ class _ItemlistState extends State<Itemlist> {
               child: Card(
                 child: ListTile(
                   onTap: () {
-                    utype == "3"
+                    utype == "2"
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => addproduct(
+                                builder: (context) => formaddLPG(
                                       list: widget.list,
                                       i: i,
                                     )))
                         : null;
                   },
-                  title: Text('PET FILM:' + '' + widget.list[i]['company_name'],
+                  title: Text('LPG ' + widget.list[i]['company_name'],
                       style: GoogleFonts.prompt(
                           fontSize: 16, color: Colors.black)),
                   trailing: Wrap(
@@ -248,7 +218,7 @@ class _ItemlistState extends State<Itemlist> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => viewproduct(
+                                  builder: (context) => UseLPGData(
                                         list: widget.list,
                                         i: i,
                                       )));
@@ -262,7 +232,7 @@ class _ItemlistState extends State<Itemlist> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => editProductMonth(
+                                        builder: (context) => editLPGMonth(
                                               list: widget.list,
                                               i: i,
                                             )));
@@ -270,10 +240,7 @@ class _ItemlistState extends State<Itemlist> {
                             )
                           : IconButton(
                               color: Colors.orange,
-                              icon: Icon(
-                                Icons.edit,
-                                color: Colors.orange,
-                              ),
+                              icon: Icon(Icons.edit),
                               onPressed: () {},
                             ),
                     ],

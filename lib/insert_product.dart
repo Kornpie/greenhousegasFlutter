@@ -54,7 +54,7 @@ class _addproductState extends State<addproduct> {
   List a = List.empty();
   String id = "";
   void jojo() async {
-    selectedValue = widget.list[widget.i]['product_company_origin'];
+    selectedValue = widget.list[widget.i]['company_id'];
     caValue = widget.list[widget.i]['product_cars'];
     product_id = widget.list[widget.i]['product_id'];
     productname = TextEditingController(text: "PET FILM");
