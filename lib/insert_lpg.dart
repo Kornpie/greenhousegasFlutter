@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:greenhousegas/show_com_lpg.dart';
 import 'package:greenhousegas/staple.dart';
 import 'package:greenhousegas/view_use_energy.dart';
 import 'package:http/http.dart' as http;
@@ -87,7 +88,7 @@ class _formaddLPGState extends State<formaddLPG> {
     var response = await request.send();
     if (response.statusCode == 200) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => viewenergy()));
+          context, MaterialPageRoute(builder: (context) => showlpgcom()));
       ArtSweetAlert.show(
           context: context,
           artDialogArgs: ArtDialogArgs(

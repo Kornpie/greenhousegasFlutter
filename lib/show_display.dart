@@ -104,6 +104,7 @@ class showdispalyState extends State<showdispaly> {
     getegElecData();
     getegLPGData();
     getegNGData();
+    getEmail();
     super.initState();
   }
 
@@ -190,6 +191,19 @@ class showdispalyState extends State<showdispaly> {
     return datawater3Table;
   }
 
+  String username = "";
+  String utype = "";
+
+  Future getEmail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      username = preferences.getString('user_fullname');
+      utype = preferences.getString('user_type');
+    });
+    print('ชื่อ' + username);
+    print('ประเภท' + utype);
+  }
+
   @override
   Widget build(BuildContext context) {
     // resultDataraw = double.parse(datarawTable[0]['raw_data1']) +
@@ -216,7 +230,7 @@ class showdispalyState extends State<showdispaly> {
                     padding: const EdgeInsets.only(
                         left: 250, right: 0, top: 0, bottom: 0),
                     child: Container(
-                      child: Text("username",
+                      child: Text(username,
                           style: TextStyle(
                               fontSize: 16,
                               // fontWeight: FontWeight.bold,
@@ -299,10 +313,7 @@ class showdispalyState extends State<showdispaly> {
                                   child: Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 156.7,
-                                          right: 10,
-                                          top: 0,
-                                          bottom: 0),
+                                          left: 0, right: 0, top: 0, bottom: 0),
                                       child: Text(datarawTable[0]['raw_data2'],
                                           style: TextStyle(
                                               fontSize: 18,
@@ -394,10 +405,7 @@ class showdispalyState extends State<showdispaly> {
                                   child: Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 156.7,
-                                          right: 10,
-                                          top: 0,
-                                          bottom: 0),
+                                          left: 0, right: 0, top: 0, bottom: 0),
                                       child: Text(
                                           dataproductTable[0]['product_data2'],
                                           style: TextStyle(
@@ -490,10 +498,7 @@ class showdispalyState extends State<showdispaly> {
                                   child: Center(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 156.7,
-                                          right: 10,
-                                          top: 0,
-                                          bottom: 0),
+                                          left: 0, right: 0, top: 0, bottom: 0),
                                       child: Text(
                                           datawasteTable[0]['waste_data2'],
                                           style: TextStyle(
@@ -748,7 +753,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้NG\n" +
+                                              "           การใช้NG\n" +
                                                   data_eg_NGTable[0]
                                                       ['ng_data2'],
                                               style: TextStyle(
@@ -1005,7 +1010,7 @@ class showdispalyState extends State<showdispaly> {
                                               top: 0,
                                               bottom: 0),
                                           child: Text(
-                                              "การใช้น้ำRO\n" +
+                                              "       การใช้น้ำRO\n" +
                                                   datawater3Table[0]
                                                       ['water3_data2'],
                                               style: TextStyle(

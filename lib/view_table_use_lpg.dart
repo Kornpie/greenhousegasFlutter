@@ -114,7 +114,7 @@ class _UseLPGDataTableState extends State<UseLPGDataTable> {
                   Container(
                     alignment: Alignment.center,
                     // width: MediaQuery.of(context).size.width,
-                    height: 1000,
+                    height: 1200,
                     width: 400,
                     padding: EdgeInsets.symmetric(vertical: 20),
                     decoration: BoxDecoration(
